@@ -1,0 +1,12 @@
+https://docs.docker.com/engine/reference/builder/#workdir
+https://mongoosejs.com/docs/populate.html
+https://github.com/mongodb-developer/mongodb-with-fastapi/blob/master/app.py
+https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
+
+Log 27-Aug-2023:
+Defined the environment variables 
+Started defining models
+
+TODO: 
+- Finish connecting models and app
+- Test the current application with Docker
