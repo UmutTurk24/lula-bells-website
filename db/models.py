@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field, EmailStr
 from bson import ObjectId
+from typing import Optional, List
+
 
 class PyObjectId(ObjectId):
     @classmethod
@@ -13,7 +15,7 @@ class PyObjectId(ObjectId):
         return ObjectId(v)
 
     @classmethod
-    def __modify_schema__(cls, field_schema):
+    def __get_pydantic_json_schema__(cls, field_schema):
         field_schema.update(type="string")
 
 class StudentModel(BaseModel):
@@ -25,7 +27,24 @@ class StudentModel(BaseModel):
     gpa: float = Field(..., le=4.0)
 
     class Config:
-        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        json_schema_extra = {
+            "example": {
+                "name": "Jane Doe",
+                "email": "jdoe@example.com",
+                "course": "Experiments, Science, and Fashion in Nanophotonics",
+                "gpa": "3.0",
+            }
+        }
+
+class UpdateStudentModel(BaseModel):
+    name: Optional[str]
+    email: Optional[EmailStr]
+    course: Optional[str]
+    gpa: Optional[float]
+
+    class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         schema_extra = {
@@ -36,4 +55,3 @@ class StudentModel(BaseModel):
                 "gpa": "3.0",
             }
         }
-

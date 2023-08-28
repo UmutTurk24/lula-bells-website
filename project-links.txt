@@ -7,6 +7,9 @@ Log 27-Aug-2023:
 Defined the environment variables 
 Started defining models
 
+Log 28-Aug-2023:
+Turned models into classes for modulariation.
+
 TODO: 
 - Finish connecting models and app
 - Test the current application with Docker
