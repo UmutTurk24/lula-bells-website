@@ -5,6 +5,7 @@ from db.model_api import Model_Api
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import os
+
 uri = os.environ.get('MONGODB_URL')
 
 app = FastAPI()
