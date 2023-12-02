@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field, EmailStr
 from bson import ObjectId
 from typing import Optional, List
 
-
 class PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -47,7 +46,7 @@ class UpdateStudentModel(BaseModel):
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "name": "Jane Doe",
                 "email": "jdoe@example.com",

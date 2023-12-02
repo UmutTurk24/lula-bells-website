@@ -10,6 +10,11 @@ Started defining models
 Log 28-Aug-2023:
 Turned models into classes for modulariation.
 
+Log 30-Aug-2023:
+Follow this link now: https://github.com/mongodb-developer/pymongo-fastapi-crud/tree/main
+
+
 TODO: 
-- Finish connecting models and app
-- Test the current application with Docker
+
+
+
