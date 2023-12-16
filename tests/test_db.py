@@ -17,6 +17,4 @@ def test_build_schema():
     cursor.close()
     connection.close()
 
-#################################
-######   VIEWS TESTING    #######
-#################################
+

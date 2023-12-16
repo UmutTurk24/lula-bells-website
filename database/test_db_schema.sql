@@ -43,6 +43,7 @@ CREATE TABLE WardrobeRentals
 	due_date				DATE,
 	is_returned				BOOLEAN,
 	notes 					VARCHAR(1000),
+	renter_info				VARCHAR(75),
 	FOREIGN KEY (cloth_id) REFERENCES Wardrobe (cloth_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);

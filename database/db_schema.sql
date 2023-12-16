@@ -1,6 +1,6 @@
-DROP SCHEMA IF EXISTS TestLulaBells;
-CREATE SCHEMA TestLulaBells;
-USE TestLulaBells;
+DROP SCHEMA IF EXISTS LulaBells;
+CREATE SCHEMA LulaBells;
+USE LulaBells;
 
 CREATE TABLE Students
 	(student_id				INTEGER(9) CHECK(LENGTH(student_id) = 9),
@@ -43,6 +43,7 @@ CREATE TABLE WardrobeRentals
 	due_date				DATE,
 	is_returned				BOOLEAN,
 	notes 					VARCHAR(1000),
+	renter_info				VARCHAR(75),
 	FOREIGN KEY (cloth_id) REFERENCES Wardrobe (cloth_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);
