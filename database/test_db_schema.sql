@@ -72,3 +72,11 @@ CREATE TABLE Notes
 	PRIMARY KEY (note_id),
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);
+
+CREATE TABLE Users
+	(user_id				INT NOT NULL AUTO_INCREMENT,
+	username				VARCHAR(50),
+	password				VARCHAR(128),
+	salt					VARCHAR(40),
+	PRIMARY KEY (user_id)
+);

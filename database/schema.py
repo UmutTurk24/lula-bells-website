@@ -255,7 +255,6 @@ def add_test_data(connection, cursor):
 #######   MAIN TESTING  #########
 #################################
 
-
 def main():
     connection, cursor = connect_to_test_database()
     build_test_schema(connection, cursor)
