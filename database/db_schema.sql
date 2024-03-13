@@ -10,6 +10,7 @@ CREATE TABLE Students
 	 class_year				INTEGER,
 	 residence				BOOLEAN,
 	 registration_date		DATE,
+	 agreement_signed		BOOLEAN,
 	 notes 					VARCHAR(500),
 	 PRIMARY KEY (student_id)
 	);

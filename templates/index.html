@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flowbite Flask</title>
+    <link rel="stylesheet" href="../static/dist/css/output.css" />
+  </head>
+
+  <body class="bg-food-patterns flex justify-center items-center h-screen">
+    <div class="text-center">
+      <img
+        src="../static/dist/lulabells.jpg"
+        alt="Lula Bells Logo"
+        class="w-1/4 mx-auto mb-6"
+      />
+      <div class="w-auto h-auto">
+        <h1 class="text-2xl font-bold text-dark-blue mb-8 bg-green-500 inline-block p-2 -my-4">
+          Welcome to Lula Bells<br />Inventory Management System
+        </h1>
+      </div>
+
+      {% if g.identity_context_data.authenticated %}
+      <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-10 px-32 rounded mx-6 text-xl" href="{{ ms_id_url_for('sign_out') }}">Sign Out</a>
+      {% else %}
+      <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-10 px-32 rounded mx-6 my-4 text-xl" href="{{ ms_id_url_for('sign_in') }}">Admin / Volunteer Login</a>
+      {% endif %}
+
+    </div>
+  </body>
+</html>

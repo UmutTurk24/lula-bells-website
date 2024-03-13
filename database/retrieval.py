@@ -4,6 +4,15 @@ def get_all_students(connection, cursor):
     return cursor.fetchall()
 
 
+def get_students_for_search_bar(connection):
+    """Returns name, last name, and id of students in the database"""
+    cursor = connection.cursor()
+    cursor.execute("SELECT student_id, student_name, student_surname FROM students")
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+
 def get_all_pantry(connection, cursor):
     """Returns all pantry items in the database"""
     cursor.execute("SELECT * FROM Pantry")
@@ -16,10 +25,14 @@ def get_all_textbooks(connection, cursor):
     return cursor.fetchall()
 
 
-def get_student(connection, cursor, student_id):
+def get_student(connection, student_id):
     """Returns a student in the database given the student_id"""
+
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM Students WHERE student_id = %s", (student_id,))
-    return cursor.fetchone()
+    result = cursor.fetchone()
+    cursor.close()
+    return result
 
 
 def get_pantryitem(connection, cursor, item_name):
@@ -52,10 +65,13 @@ def get_all_pantrypurchases(connection, cursor):
     return cursor.fetchall()
 
 
-def get_textbookrental_by_student(connection, cursor, student_id):
+def get_textbookrental_by_student(connection, student_id):
     """Returns all textbook rentals in the database given the student_id"""
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM TextbookRentals WHERE student_id = %s", (student_id,))
-    return cursor.fetchall()
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 
 def get_textbookrental_by_bookname(connection, cursor, book_name):
@@ -75,10 +91,13 @@ def get_textbookrental_by_startdate_and_enddate(
     return cursor.fetchall()
 
 
-def get_wardroberental_by_student(connection, cursor, student_id):
+def get_wardroberental_by_student(connection, student_id):
     """Returns all wardrobe rentals in the database given the student_id"""
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM WardrobeRentals WHERE student_id = %s", (student_id,))
-    return cursor.fetchall()
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 
 def get_wardroberental_by_clothid(connection, cursor, cloth_id):
@@ -102,7 +121,6 @@ def get_pantrypurchase_by_student(connection, cursor, student_id):
     """Returns all pantry purchases in the database given the student_id"""
     cursor.execute("SELECT * FROM PantryPurchase WHERE student_id = %s", (student_id,))
     return cursor.fetchall()
-
 
 def get_pantrypurchase_by_itemname(connection, cursor, item_name):
     """Returns all pantry purchases in the database given the item_name"""

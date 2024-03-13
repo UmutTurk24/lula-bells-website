@@ -9,7 +9,6 @@ import bcrypt
 
 def insert_student(
     connection,
-    cursor,
     student_id,
     student_name,
     student_surname,
@@ -21,10 +20,11 @@ def insert_student(
 ):
     """Inserts a student into the database"""
 
+    cursor = connection.cursor()
     try:
         cursor.execute(
             "INSERT INTO Students (student_id, student_name, student_surname, student_email, \
-            class_year, residence, registration_date, notes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            class_year, residence, registration_date, agreement_signed, notes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
             (
                 student_id,
                 student_name,
@@ -33,15 +33,16 @@ def insert_student(
                 class_year,
                 residence,
                 registration_date,
+                0,
                 notes,
             ),
         )
         connection.commit()
+        cursor.close()
+        return True
     except mysql.connector.Error as error_descriptor:
         print("Failed inserting student: {}".format(error_descriptor))
-        cursor.close()
-        connection.close()
-        exit(1)
+        return None
 
 
 def insert_pantryitem(connection, cursor, item_name, quantity=0, cost=0.0):
@@ -208,4 +209,3 @@ def convertDate(date):
     day = date[6:8]
 
     return datetime.date(int(year), int(month), int(day))
-

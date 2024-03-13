@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+
+
+{% block banner_text %}
+    {% block title %}
+        {{ config['SAMPLE_DESCRIPTION'] }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h5 class="card-header">
+        {% block header%} {% endblock %}
+    </h5>
+    <div class="card-body">
+        <p class="card-text">
+            {% block text %} {% endblock %}
+        </p>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block flash_messages %}
+{% endblock %}
+
+{% block footer %}
+
+    {% if g.identity_context_data.authenticated == false %}
+
+    <header class="bg-purple rounded-xl my-2.5 w-9/12 mx-auto min-w-96">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+            <div class="flex lg:flex-1">
+                <a href="#" class="-m-1.5 p-1.5">
+                    <span class="sr-only">Lula Bell's Resource Center</span>
+                    <div class="flex flex-auto ">
+                        <img class="h-8 w-auto"
+                            src="https://static.vecteezy.com/system/resources/thumbnails/017/398/790/small/white-circle-free-png.png"
+                            alt="Lula Bell's Logo">
+                        <span class="text-2xl font-semibold text-white">LULA BELLS</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:flex lg:flex-1 lg:justify-end">
+                <a href="#" class="text-2xl leading-6 text-white">LB VOLUNTEER <span
+                        aria-hidden="true">&rarr;</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="student-search bg-green rounded-xl my-12 w-7/12 mx-auto py-6 px-8 min-w-96">
+            <form class="pt-100 flex justify-between" action="">
+                <button class="text-white bg-purple rounded-xl px-6 py-3" type="submit">New Student</button>
+                <input class="py-3 px-6 rounded-xl" type="text" placeholder="Search for Student">
+            </form>
+        </section>
+        <section class="resource-options flex flex-wrap gap-3.5 justify-around">
+            <div
+                class="bg-black rounded-xl py-8 my-2 px-3 w-2/12 flex flex-col justify-center items-center text-center min-w-40">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/017/398/790/small/white-circle-free-png.png"
+                    alt="">
+                <h2 class="text-white text-2xl">Grocery</h2>
+            </div>
+            <div
+                class="bg-teal-500 rounded-xl py-8 my-2 px-3 w-2/12 flex flex-col justify-center items-center text-center min-w-40">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/017/398/790/small/white-circle-free-png.png"
+                    alt="">
+                <h2 class="text-white text-2xl">Academics</h2>
+            </div>
+            <div
+                class="bg-black rounded-xl py-8 my-2 px-3 w-2/12 flex flex-col justify-center items-center text-center min-w-40">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/017/398/790/small/white-circle-free-png.png"
+                    alt="">
+                <h2 class="text-white text-2xl">Cookware</h2>
+            </div>
+            <div
+                class="bg-teal-500 rounded-xl py-8 my-2 px-3 w-2/12 flex flex-col justify-center items-center text-center min-w-40">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/017/398/790/small/white-circle-free-png.png"
+                    alt="">
+                <h2 class="text-white text-2xl">Clothing</h2>
+            </div>
+        </section>
+    </main>
+
+        
+    {% endif %}
+
+{% endblock %}
+

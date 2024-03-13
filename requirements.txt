@@ -1,10 +1,12 @@
-pip==23.2.1
+pip==24.0
 pytest==7.4.0
 httpx==0.24.1
 ipython==8.14.0
 motor==3.3.0
 mysql-connector-python==8.2.0
-duo_universal==2.0.3
-urllib3==2.1.0
 flask==3.0.0
 bcrypt==4.1.2
+Flask-Session==0.6.0
+pyOpenSSL==24.0.0
+Werkzeug==3.0.1
+git+https://github.com/azure-samples/ms-identity-python-samples-common

@@ -33,6 +33,9 @@ def setup_database():
 def update_db_schema():
     """Set up or update database schemas from scratch"""
 
+    # Connect to the database provider
+    setup_database()
+
     # Create the database schema
     connection, cursor = connect_to_database()
 

@@ -1,4 +1,8 @@
 .envrc
 .venv
+.pytest_cache
 secrets.txt
 duo.conf
+aad.config.json
+app_config.py
+ssl

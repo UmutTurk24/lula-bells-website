@@ -1,153 +1,168 @@
+from datetime import datetime
+import logging
 import configparser
 import argparse
 import json
 import os
 import traceback
+from pathlib import Path
+import app_config
 
-from flask import Flask, request, redirect, session, render_template
 
-from duo_universal.client import Client, DuoException
+from flask import Flask, jsonify, request, redirect, session, render_template, current_app
+from flask_session import Session
+
+from ms_identity_web import IdentityWebPython
+from ms_identity_web.adapters import FlaskContextAdapter
+from ms_identity_web.errors import NotAuthenticatedError
+from ms_identity_web.configuration import AADConfig
 
 import mysql.connector
-from database.authentication import guest_connect_to_database, check_authentication
+
+from database.schema import connect_to_database
+from database.insertions import insert_student
+from database.retrieval import get_student, get_students_for_search_bar, get_wardroberental_by_student, get_textbookrental_by_student
+from database.dyn_queries import get_visits_for_student
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
-DB_USER = "guest"
-DB_PASSWORD = "guest"
-DB_HOST = "localhost"
-DB_NAME = "LulaBells"
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+DB_HOST = os.environ.get("DB_HOST")
+DB_NAME = os.environ.get("DB_NAME")
 
-@app.route("/", methods=["GET"])
-def login():
-    return render_template("login.html", message="This is a demo")
+def create_app(secure_client_credential=None):
+    app = Flask(__name__, root_path=Path(__file__).parent)  # initialize Flask app
+    app.config.from_object(
+        app_config
+    )  # load Flask configuration file (e.g., session configs)
+    Session(
+        app
+    )  # init the serverside session for the app: this is requireddue to large cookie size
+    aad_configuration = AADConfig.parse_json("aad.config.json")  # parse the aad configs
+    app.logger.level = logging.INFO  # can set to DEBUG for verbose logs
+    if app.config.get("ENV") == "production":
+        # The following is required to run on Azure App Service or any other host with reverse proxy:
+        from werkzeug.middleware.proxy_fix import ProxyFix
 
-@app.route("/", methods=["POST"])
-def login_post():
-    """
-    respond to HTTP POST with 2FA as long as health check passes
-    """
-    username = request.form.get("username")
-    password = request.form.get("password")
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+        # Use client credential from outside the config file, if available.
+        if secure_client_credential:
+            aad_configuration.client.client_credential = secure_client_credential
 
-    # Check user's first factor.
-    if password is None or password == "":
-        return render_template("login.html", message="Missing password")
+    AADConfig.sanity_check_configs(aad_configuration)
+    adapter = FlaskContextAdapter(
+        app
+    )  # ms identity web for python: instantiate the flask adapter
+    ms_identity_web = IdentityWebPython(
+        aad_configuration, adapter
+    )  # then instantiate ms identity web for python
 
-    # Check that the user exists in the database
-    result = guest_connect_to_database(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+    # Connect to the database
+    mydb, mycursor = connect_to_database()
 
-    if result == mysql.connector.Error:
-        return render_template("login.html", message="Database connection error")
-    
-    connection, cursor = result
+    @app.route("/inventory")
+    @ms_identity_web.login_required  
+    def main_page():
+        return render_template("inventory.html")
 
-    result = check_authentication(connection, cursor, username, password)
+    @app.route("/register-student", methods=["POST"])
+    @ms_identity_web.login_required
+    def register_student():
+        data = request.get_json()
+        id = data["id"]
+        name = data["name"]
+        lastName = data["lastName"]
+        email = data["email"]
+        class_year = data["classYear"]
+        residence = data["residence"]
+        registration_date = datetime.today().strftime('%Y-%m-%d') 
 
-    try:
-        duo_client.health_check()
-    except DuoException:
-        traceback.print_exc()
-        if duo_failmode.upper() == "OPEN":
-            # If we're failing open errors in 2FA still allow for success
-            return render_template(
-                "success.html",
-                message="Login 'Successful', but 2FA Not Performed. Confirm Duo client/secret/host values are correct",
-            )
+        # Cleanup Input Data
+        if residence == "on-campus":
+            residence = 1
         else:
-            # Otherwise the login fails and redirect user to the login page
-            return render_template(
-                "login.html",
-                message="2FA Unavailable. Confirm Duo client/secret/host values are correct",
-            )
+            residence = 0
 
-    # Generate random string to act as a state for the exchange
-    state = duo_client.generate_state()
-    session["state"] = state
-    session["username"] = username
-    prompt_uri = duo_client.create_auth_url(username, state)
+        # Check if the student is already in the database
+        student = get_student(mydb, id)
+        if student:
+            return jsonify({"message": "Student already in the database"}), 400
 
-    # Redirect to prompt URI which will redirect to the client's redirect URI
-    # after 2FA
-    return redirect(prompt_uri)
+        is_inserted = insert_student(mydb, id, name, lastName, email, class_year, residence, registration_date)
 
+        if not is_inserted:
+            return jsonify({"message": "Failed to insert student"}), 500
 
-# This route URL must match the redirect_uri passed to the duo client
-@app.route("/duo-callback")
-def duo_callback():
-    # Get state to verify consistency and originality
-    state = request.args.get("state")
+        return jsonify({"message": "Student got inserted"}), 200
 
-    # Get authorization token to trade for 2FA
-    code = request.args.get("duo_code")
+    @app.route("/get-search-bar-info", methods=["GET"])
+    @ms_identity_web.login_required
+    def get_search_bar_info():
 
-    if "state" in session and "username" in session:
-        saved_state = session["state"]
-        username = session["username"]
-    else:
-        # For flask, if url used to get to login.html is not localhost,
-        # (ex: 127.0.0.1) then the sessions will be different
-        # and the localhost session does not have the state
-        return render_template(
-            "login.html", message="No saved state please login again"
-        )
+        result = get_students_for_search_bar(mydb)
+        if not result:
+            return jsonify({"message": "Failed to retrieve students"}), 500
 
-    # Ensure nonce matches from initial request
-    if state != saved_state:
-        return render_template(
-            "login.html", message="Duo state does not match saved state"
-        )
+        # Combine the first and last name
+        for i in range(len(result)):
+            result[i] = (result[i][0], result[i][1] + " " + result[i][2])
 
-    decoded_token = duo_client.exchange_authorization_code_for_2fa_result(
-        code, username
-    )
+        # Append the student id to the name (name + id)
+        for i in range(len(result)):
+            result[i] = result[i][1] + " " + str(result[i][0])
 
-    # Exchange happened successfully so render success page
-    return render_template(
-        "success.html", message=json.dumps(decoded_token, indent=2, sort_keys=True)
-    )
+        return jsonify(result)
 
+    @app.route("/get-searched-student-info", methods=["GET"])
+    @ms_identity_web.login_required
+    def get_searched_student_info():
 
-def parse():
-    parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser.add_argument(
-        "-c",
-        "--config",
-        help="The config section from duo.conf to use",
-        default="duo",
-        metavar="",
-    )
+        student_id = request.args.get('studentId')
 
-    return parser.parse_known_args()[0]
+        student_info = get_student(mydb, student_id)
+        print(student_info)
+        if not student_info:
+            return jsonify({"message": "Student does not exist in the database"}), 500
 
+        previous_visits = get_visits_for_student(mydb, student_id)
 
-config = configparser.ConfigParser()
-config.read("duo.conf")
+        if not previous_visits: 
+            previous_visits = []
 
-config_section = parse().config
+        textbook_rentals = get_textbookrental_by_student(mydb, student_id)
 
-try:
-    duo_client = Client(
-        client_id=config[config_section]["client_id"],
-        client_secret=config[config_section]["client_secret"],
-        host=config[config_section]["api_hostname"],
-        redirect_uri=config[config_section]["redirect_uri"],
-        duo_certs=config[config_section].get("duo_certs", None),
-    )
-except DuoException as e:
-    print("*** Duo config error. Verify the values in duo.conf are correct ***")
-    raise e
+        if not textbook_rentals:
+            textbook_rentals = []
 
-duo_failmode = config[config_section]["failmode"]
+        wardrobe_rentals = get_wardroberental_by_student(mydb, student_id)
+
+        if not wardrobe_rentals:
+            wardrobe_rentals = []
+
+        result = {
+            "studentInfo": student_info,
+            "previousVisits": previous_visits,
+            "wardrobeRentals": wardrobe_rentals,
+            "textbookRentals": textbook_rentals
+        }
+
+        return jsonify(result)
+
+    @app.route("/login")
+    def login():
+        return render_template("login.html")
+
+    @app.route("/")
+    def index():
+        return render_template("index.html")
+
+    return app
 
 if __name__ == "__main__":
-    # Parse the secrets.txt file for guest password
-    secrets_file = open("secrets.txt", "rb")
-    secrets = secrets_file.read().splitlines()
-    DB_USER = 'guest'
-    DB_PASSWORD = secrets[1].split()[2].decode('utf-8')
+    app = create_app()
+    app.run(host="localhost", port=5000, ssl_context="adhoc")
 
-    app.run(host="localhost", port=8080)
+# app = create_app()

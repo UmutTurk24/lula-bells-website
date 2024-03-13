@@ -32,39 +32,38 @@ GROUP BY t.purchase_date;
 -- PROCEDURE: Get number of visits each day for a specific student
 CREATE PROCEDURE GetVisitsForStudent(IN given_student_id INT)
 BEGIN
-    SELECT *
+    SELECT pr.purchase_date, COUNT(pr.purchase_date) AS item_count
     FROM (
         SELECT *
         FROM Students s
         WHERE s.student_id = given_student_id
     ) AS st
     JOIN (
-        SELECT student_id
+        SELECT student_id, purchase_date
         FROM PantryPurchase pp
-        GROUP BY student_id, purchase_date
-    ) AS pr ON pr.student_id = st.student_id;
+    ) AS pr ON pr.student_id = st.student_id
+    GROUP BY pr.purchase_date;
 END;
 -- Example usage: CALL GetVisitsForStudent(801396000);
 
-
-
-
--- PROCEDURE: Get a student's visits
-CREATE PROCEDURE GetVisitsForSpecificStudent(IN given_student_id INT)
+-- PROCEDURE: Get the items purchased on a specific date for a specific student
+CREATE PROCEDURE GetVisitDetailsForStudent(IN given_student_id INT, IN given_date DATE)
 BEGIN
-    SELECT *
+    SELECT pr.item_name, pr.quantity
     FROM (
-        SELECT *
+        SELECT s.student_id
         FROM Students s
         WHERE s.student_id = given_student_id
     ) AS st
     JOIN (
-        SELECT student_id
+        SELECT *
         FROM PantryPurchase pp
-        GROUP BY student_id, purchase_date
+        WHERE pp.purchase_date = given_date
     ) AS pr ON pr.student_id = st.student_id;
 END;
--- CALL GetVisitsForSpecificStudent(801396000);
+
+
+
 
 -- Get the number of visits each day between two days
 CREATE PROCEDURE GetVisitsBetweenDates(IN start_date DATE, IN end_date DATE)

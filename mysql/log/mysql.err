@@ -1,0 +1,54 @@
+2024-03-12T23:05:14.739761Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-03-12T23:05:14.742212Z 0 [System] [MY-013169] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld (mysqld 8.1.0) initializing of server in progress as process 78328
+2024-03-12T23:05:14.744479Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-03-12T23:05:14.747686Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-03-12T23:05:14.826913Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-03-12T23:05:15.239643Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: fiIH1dymGM+S
+2024-03-12T23:05:15.520344Z 0 [System] [MY-013172] [Server] Received SHUTDOWN from user <via user signal>. Shutting down mysqld (Version: 8.1.0).
+2024-03-12T23:05:16.081081Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-03-12T23:05:25.419303Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-03-12T23:05:25.563722Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld (mysqld 8.1.0) starting as process 78362
+2024-03-12T23:05:25.564914Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-03-12T23:05:25.568342Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-03-12T23:05:25.600327Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-03-12T23:05:26.652952Z 0 [ERROR] [MY-011292] [Server] Plugin mysqlx reported: 'Preparation of I/O interfaces failed, X Protocol won't be accessible'
+2024-03-12T23:05:26.653046Z 0 [ERROR] [MY-011300] [Server] Plugin mysqlx reported: 'Setup of bind-address: '127.0.0.1' port: 33060 failed, `bind()` failed with error: Address already in use (48). Do you already have another mysqld server running with Mysqlx ?'
+2024-03-12T23:05:26.653077Z 0 [ERROR] [MY-013597] [Server] Plugin mysqlx reported: 'Value '127.0.0.1' set to `Mysqlx_bind_address`, X Plugin can't bind to it. Skipping this value.'
+2024-03-12T23:05:26.653103Z 0 [ERROR] [MY-011300] [Server] Plugin mysqlx reported: 'Setup of socket: '/tmp/mysqlx.sock' failed, another process with PID 77666 is using UNIX socket file'
+2024-03-12T23:05:26.710068Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-03-12T23:05:26.710091Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-03-12T23:05:26.711122Z 0 [ERROR] [MY-010262] [Server] Can't start server: Bind on TCP/IP port: Address already in use
+2024-03-12T23:05:26.711131Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
+2024-03-12T23:05:26.711145Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-03-12T23:05:27.734775Z 0 [System] [MY-010910] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld: Shutdown complete (mysqld 8.1.0)  Homebrew.
+2024-03-12T23:05:27.735445Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+2024-03-12T23:05:46.955813Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-03-12T23:05:46.958435Z 0 [System] [MY-013169] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld (mysqld 8.1.0) initializing of server in progress as process 78390
+2024-03-12T23:05:46.959637Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2024-03-12T23:05:46.959670Z 0 [ERROR] [MY-013236] [Server] The designated data directory /Users/umut/Github/lula-bells-website/mysql/data/ is unusable. You can remove all files that the server added to it.
+2024-03-12T23:05:46.959728Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-03-12T23:05:46.960083Z 0 [System] [MY-010910] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld: Shutdown complete (mysqld 8.1.0)  Homebrew.
+2024-03-12T23:05:46.960288Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-03-12T23:05:54.039467Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-03-12T23:05:54.040878Z 0 [System] [MY-013169] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld (mysqld 8.1.0) initializing of server in progress as process 78412
+2024-03-12T23:05:54.042167Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2024-03-12T23:05:54.042221Z 0 [ERROR] [MY-013236] [Server] The designated data directory /Users/umut/Github/lula-bells-website/mysql/data/ is unusable. You can remove all files that the server added to it.
+2024-03-12T23:05:54.042295Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-03-12T23:05:54.042443Z 0 [System] [MY-010910] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld: Shutdown complete (mysqld 8.1.0)  Homebrew.
+2024-03-12T23:05:54.042691Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-03-12T23:07:24.174279Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2024-03-12T23:07:24.177306Z 0 [System] [MY-013169] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld (mysqld 8.1.0) initializing of server in progress as process 78607
+2024-03-12T23:07:24.179333Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2024-03-12T23:07:24.179378Z 0 [ERROR] [MY-013236] [Server] The designated data directory /Users/umut/Github/lula-bells-website/mysql/data/ is unusable. You can remove all files that the server added to it.
+2024-03-12T23:07:24.179612Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-03-12T23:07:24.180072Z 0 [System] [MY-010910] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld: Shutdown complete (mysqld 8.1.0)  Homebrew.
+2024-03-12T23:07:24.180280Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+2024-03-12T23:07:33.999004Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-03-12T23:07:34.143672Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld (mysqld 8.1.0) starting as process 78632
+2024-03-12T23:07:34.144903Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-03-12T23:07:34.148478Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-03-12T23:07:34.195875Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-03-12T23:07:34.289230Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-03-12T23:07:34.289257Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-03-12T23:07:34.300306Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
+2024-03-12T23:07:34.300335Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld: ready for connections. Version: '8.1.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.

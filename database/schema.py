@@ -1,17 +1,19 @@
 import mysql.connector
+import os
 
-DB_USER = "root"
-DB_PASSWORD = "123456"
-DB_HOST = "localhost"
-DB_NAME = "LulaBells"
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+DB_HOST = os.environ.get("DB_HOST")
+DB_NAME = os.environ.get("DB_NAME")
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))  # This is your Project Root
 
-SCHEMA_FILE = "database/db_schema.sql"
-DYNAMIC_FILE = "database/db_dynamics.sql"
+SCHEMA_FILE  = os.path.join(CURRENT_DIR, "db_schema.sql")
+DYNAMIC_FILE = os.path.join(CURRENT_DIR, "db_dynamics.sql")
 
 TEST_DB_NAME = "TestLulaBells"
-TEST_SCHEMA_FILE = "database/test_db_schema.sql"
-TEST_DYNAMIC_FILE = "database/test_db_dynamics.sql"
+TEST_SCHEMA_FILE  =  os.path.join(CURRENT_DIR, "test_db_schema.sql")
+TEST_DYNAMIC_FILE = os.path.join(CURRENT_DIR,"database/test_db_dynamics.sql")
 
 
 ###############################
@@ -256,14 +258,14 @@ def add_test_data(connection, cursor):
 #################################
 
 def main():
-    connection, cursor = connect_to_test_database()
-    build_test_schema(connection, cursor)
+    connection, cursor = connect_to_database()
+    build_schema(connection, cursor)
+    build_dynamic(connection, cursor)
+    add_test_data(connection, cursor)
     connection.commit()
     cursor.close()
     connection.close()
 
-
-main()
 
 # export main
 if __name__ == "__main__":
