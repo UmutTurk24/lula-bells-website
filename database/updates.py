@@ -72,3 +72,54 @@ def update_textbookitem(connection, cursor, old_book_name, owned_status, new_boo
         cursor.close()
         connection.close()
         exit(1)
+
+
+def update_pantry_purchase(connection, quantity, purchase_date, student_id, item_name):
+    """Updates a grocery visit item in the database given the visit_id"""
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "UPDATE PantryPurchase SET quantity = %s WHERE purchase_date = %s AND student_id = %s AND item_name = %s",
+            (quantity, purchase_date, student_id, item_name),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed updating grocery visit item: {}".format(error_descriptor))
+        return None
+
+
+def update_rented_cloth_db(connection, rental_date, student_id, cloth_id, is_returned):
+    """Updates a rented clothing item in the database """
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "UPDATE WardrobeRentals SET is_returned = %s WHERE student_id = %s AND cloth_id = %s AND rental_date = %s",
+            (is_returned, student_id, cloth_id, rental_date),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed updating rented clothing: {}".format(error_descriptor))
+        return None
+
+
+def update_rented_textbook_db(connection, rental_date, student_id, textbook_name, is_returned):
+    """Updates a rented textbook item in the database """
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "UPDATE TextbookRentals SET is_returned = %s WHERE student_id = %s AND book_name = %s AND rental_date = %s",
+            (is_returned, student_id, textbook_name, rental_date),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed updating rented texbtook: {}".format(error_descriptor))
+        return None

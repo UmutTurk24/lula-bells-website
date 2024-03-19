@@ -13,7 +13,7 @@ async function fetchStudents() {
     console.log(students);
     // Convert the data to an array of student names
     return data.map(student => student);
-    
+
     console.log(data);
   } catch (error) {
     console.error('Error:', error);
@@ -22,54 +22,54 @@ async function fetchStudents() {
 
 students = fetchStudents();
 
-const searchInput = document.getElementById('searchInput');
+const searchStudentInput = document.getElementById('searchStudentInput');
 const searchResults = document.getElementById('searchResults');
 
-searchInput.addEventListener('input', function () {
-    const searchTerm = this.value.trim().toLowerCase();
+searchStudentInput.addEventListener('input', function () {
+  const searchTerm = this.value.trim().toLowerCase();
 
-    if (searchTerm === '') {
-        searchResults.innerHTML = '';
-        searchResults.classList.add('hidden');
-        return;
-    }
-
-    const filteredStudents = students.filter(student =>
-        student.toLowerCase().includes(searchTerm)
-    ).slice(0, 5); // Limit to 5 suggestions
-
-    // Clear previous results
+  if (searchTerm === '') {
     searchResults.innerHTML = '';
+    searchResults.classList.add('hidden');
+    return;
+  }
 
-    // Display matching results
-    if (filteredStudents.length > 0) {
-        searchResults.classList.remove('hidden');
-        filteredStudents.forEach(student => {
-            const resultItem = document.createElement('div');
-            resultItem.textContent = student;
-            resultItem.classList.add('px-4', 'py-2', 'cursor-pointer', 'hover:bg-gray-100');
-            resultItem.addEventListener('click', function () {
-                searchInput.value = student;
-                searchResults.classList.add('hidden');
-                queryDatabase(student);
-            });
-            searchResults.appendChild(resultItem);
-        });
-    } else {
+  const filteredStudents = students.filter(student =>
+    student.toLowerCase().includes(searchTerm)
+  ).slice(0, 5); // Limit to 5 suggestions
+
+  // Clear previous results
+  searchResults.innerHTML = '';
+
+  // Display matching results
+  if (filteredStudents.length > 0) {
+    searchResults.classList.remove('hidden');
+    filteredStudents.forEach(student => {
+      const resultItem = document.createElement('div');
+      resultItem.textContent = student;
+      resultItem.classList.add('px-4', 'py-2', 'cursor-pointer', 'hover:bg-gray-100');
+      resultItem.addEventListener('click', function () {
+        searchStudentInput.value = student;
         searchResults.classList.add('hidden');
-    }
+        queryDatabase(student);
+      });
+      searchResults.appendChild(resultItem);
+    });
+  } else {
+    searchResults.classList.add('hidden');
+  }
 });
 
 // Hide suggestions when clicking outside the search box
 document.addEventListener('click', function (event) {
-    if (!searchResults.contains(event.target) && event.target !== searchInput) {
-        searchResults.classList.add('hidden');
-    }
+  if (!searchResults.contains(event.target) && event.target !== searchStudentInput) {
+    searchResults.classList.add('hidden');
+  }
 });
 
 // Prevent dropdown from closing when clicking on input
-searchInput.addEventListener('click', function (event) {
-    event.stopPropagation();
+searchStudentInput.addEventListener('click', function (event) {
+  event.stopPropagation();
 });
 
 async function fetchStudentInfo(studentId) {
@@ -90,95 +90,148 @@ async function fetchStudentInfo(studentId) {
 // Function to query the database with the selected student name
 async function queryDatabase(student) {
 
-    // Extract the id of the student (the last word in the student name string)
-
-    const studentId = student.split(' ').pop();
-
-
-    // Gather all student information from the database
-    var studentInfo = await fetchStudentInfo(studentId);
-
-    console.log(studentInfo);
-
-    var student = studentInfo['studentInfo'];
-    var previousVisits = studentInfo['previousVisits'];
-    var wardrobeRentals = studentInfo['wardrobeRentals'];
-    var textbookRentals = studentInfo['textbookRentals'];
-
-    // Fill out the Student Information
-    var studentNameField = document.getElementById('studentNameField');
-    var studentIdField = document.getElementById('studentIdField');
-    var studentEmailField = document.getElementById('studentEmailField');
-
-    studentNameField.innerHTML = student[1] + " " + student[2];
-    studentIdField.innerHTML = student[0];
-    studentEmailField.innerHTML = student[3];
-
-    // Update the agreement button if it hasn't been signed
-    var agreementButton = document.getElementById('agreementButton');
-    if (student[7] == 0) {
-        agreementButton.classList.remove('bg-green-500');
-        agreementButton.classList.add('bg-red-500');
-        agreementButton.innerHTML = "Agreement Not Signed";
-    }
-
-    // Fill out the Previous Visits
-    var previousVisitsField = document.getElementById('previousVisitsWindow');
-    previousVisitsField.innerHTML = "";
+  // Extract the id of the student (the last word in the student name string)
+  const studentId = student.split(' ').pop();
 
 
-    // For each visit, create a new div element and append it
-    previousVisits.forEach(visit => {
-        let div = document.createElement('div');
+  // Gather all student information from the database
+  var studentInfo = await fetchStudentInfo(studentId);
 
-        // Format the date
-        let date = new Date(visit[0]);
-        let dateString = date.toLocaleDateString();
+  console.log(studentInfo);
 
-        div.textContent = "Visit Date: " + dateString + ", Item Count: " + visit[1];
-        div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
-        div.setAttribute('onclick', `showModal('${visit[3]}${visit[4]}')`);
-        previousVisitsField.appendChild(div);
-    });
+  var student = studentInfo['studentInfo'];
+  var previousVisits = studentInfo['previousVisits'];
+  var wardrobeRentals = studentInfo['wardrobeRentals'];
+  var textbookRentals = studentInfo['textbookRentals'];
 
-    
+  // Fill out the Student Information
+  var studentNameField = document.getElementById('studentNameField');
+  var studentIdField = document.getElementById('studentIdField');
+  var studentEmailField = document.getElementById('studentEmailField');
 
-    // Gather textbooks rented by this student
+  studentNameField.innerHTML = student[1] + " " + student[2];
+  studentIdField.innerHTML = student[0];
+  studentEmailField.innerHTML = student[3];
 
-    // Gather kitchenware rented by this student
+  // Update the agreement button if it hasn't been signed
+  var agreementButton = document.getElementById('agreementButton');
+  if (student[7] == 0) {
+    agreementButton.classList.remove('bg-green-500');
+    agreementButton.classList.add('bg-red-500');
+    agreementButton.innerHTML = "Agreement Not Signed";
+  }
 
-    // Gather clothing items rented by this student
+  // Fill out the Previous Visits
+  displayGroceryInfo(previousVisits, student);
+  displayRentalInfo(wardrobeRentals, textbookRentals, student);
 
+  const res = {
+    id: student[0][0],
+    name: student[0][1],
+    lastName: student[0][2],
+  };
 
-    
-    
-    const res = {
-        id: student[0][0],
-        name: student[0][1],
-        lastName: student[0][2],
-    };
-
-    
-
-    // Here, you can send an AJAX request to your backend to query the database
-    // and retrieve student information based on the selected student name
-    // For demonstration purposes, let's assume we have retrieved the student information
-    
-
-    // Call a function to display the student information
-    displayStudentInfo(res);
+  // Call a function to display the student information
+  displayStudentInfo(res);
 }
+
+function displayRentalInfo(wardrobeRentals, textbookRentals, student) {
+  let rentalsField = document.getElementById('rentedItemsWindow');
+  rentalsField.innerHTML = "";
+
+  wardrobeRentals.forEach(rental => {
+    if (rental[4] == 0) {
+      var clothId = rental[1];
+      var dueDate = rental[3];
+      var notes = rental[5];
+      var renter = rental[6];
+
+      // Format the date
+      let date = new Date(dueDate);
+      let dateString = date.toLocaleDateString();
+
+      const rentalInfo = "Clothing ID: " + clothId + ", Due Date: " + dateString;
+
+      let div = document.createElement('div');
+      div.textContent = rentalInfo;
+      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
+      div.addEventListener('click', () => showRentedClothModal(dateString, clothId, notes, renter, student));
+      rentalsField.appendChild(div);
+    }
+  });
+
+  textbookRentals.forEach(rental => {
+    if (rental[4] == 0) {
+      textbookName = rental[1];
+      dueDate = rental[3];
+      notes = rental[5];
+
+      // Format the date
+      let date = new Date(dueDate);
+      let dateString = date.toLocaleDateString();
+
+      const rentalInfo = "Textbook: " + textbookName + ", Due Date: " + dateString;
+
+      let div = document.createElement('div');
+      div.textContent = rentalInfo;
+      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
+      div.addEventListener('click', () => showRentedTextbookModal(dateString, textbookName, notes, student));
+
+      rentalsField.appendChild(div);
+    }
+  });
+}
+
+function displayGroceryInfo(previousVisits, student) {
+  // Fill out the Previous Visits
+  var previousVisitsField = document.getElementById('previousVisitsWindow');
+  previousVisitsField.innerHTML = "";
+  console.log(previousVisits);
+
+  // Group the item name and count based on the date
+  let groupedVisits = {};
+  previousVisits.forEach(visit => {
+    let date = new Date(visit[2]);
+    let dateString = date.toLocaleDateString();
+
+    console.log(dateString)
+
+    if (groupedVisits[dateString] == undefined) {
+      var itemName = visit[0];
+      var itemCount = visit[1];
+
+      // Add the itemName,itemCount pair to the array
+      groupedVisits[dateString] = [{itemName, itemCount}];
+
+    } else {
+      var itemName = visit[0];
+      var itemCount = visit[1];
+
+      // Append the itemName,itemCount pair to the arrays
+      groupedVisits[dateString].push({itemName, itemCount});
+    }
+  });
+
+  // Iterate through the groupedVisits object
+  for (const [key, value] of Object.entries(groupedVisits)) {
+    let div = document.createElement('div');
+    div.textContent = "Visit Date: " + key;
+    div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
+    div.addEventListener('click', () => showGroceryModal(key, value, student));
+
+    previousVisitsField.appendChild(div);
+  }
+}
+
+
+
+
 // Function to display the student information
 function displayStudentInfo(studentInfo) {
-    // Hide the boxes section
-    document.getElementById('boxesSection').classList.add('hidden');
+  // Hide the boxes section
+  document.getElementById('boxesSection').classList.add('hidden');
 
-    // Display the student information section
-    const studentInfoSection = document.getElementById('studentInfoSection');
-    // studentInfoSection.innerHTML = `
-    //     <h2 class="text-xl font-bold mb-4">${studentInfo.name} ${studentInfo.lastName}</h2>
-    //     <p><strong>Class Year:</strong> ${studentInfo.classYear}</p>
-    //     <p><strong>Student ID:</strong> ${studentInfo.id}</p>
-    // `;
-    studentInfoSection.classList.remove('hidden');
+  // Display the student information section
+  const studentInfoSection = document.getElementById('studentInfoSection');
+  studentInfoSection.classList.remove('hidden');
 }

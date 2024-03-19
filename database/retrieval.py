@@ -74,6 +74,18 @@ def get_textbookrental_by_student(connection, student_id):
     return result
 
 
+def get_possessed_textbooks_by_student(connection, student_id):
+    """Returns all textbook rentals in the database given the student_id"""
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT * FROM TextbookRentals WHERE student_id = %s AND is_returned = 0",
+        (student_id),
+    )
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+
 def get_textbookrental_by_bookname(connection, cursor, book_name):
     """Returns all textbook rentals in the database given the book_name"""
     cursor.execute("SELECT * FROM TextbookRentals WHERE book_name = %s", (book_name,))
@@ -94,7 +106,7 @@ def get_textbookrental_by_startdate_and_enddate(
 def get_wardroberental_by_student(connection, student_id):
     """Returns all wardrobe rentals in the database given the student_id"""
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM WardrobeRentals WHERE student_id = %s", (student_id,))
+    cursor.execute("SELECT * FROM WardrobeRentals WHERE student_id = %s AND is_returned = 0", (student_id,))
     result = cursor.fetchall()
     cursor.close()
     return result
@@ -145,3 +157,11 @@ def get_pantry_purchase_by_startdate_and_enddate(
         (start_date, end_date),
     )
     return cursor.fetchall()
+
+def get_textbooks_and_renters(connection):
+    """Returns all textbooks and renters information in the database"""
+    cursor = connection.cursor()
+    cursor.execute("SELECT w.cloth_id, wr.rental_date, wr.is_returned FROM (SELECT * FROM Wardrobe w) as w LEFT JOIN (SELECT * FROM WardrobeRentals WHERE is_returned = 0) as wr ON w.cloth_id = wr.cloth_id")
+    result = cursor.fetchall()
+    cursor.close()
+    return result

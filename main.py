@@ -21,7 +21,18 @@ import mysql.connector
 
 from database.schema import connect_to_database
 from database.insertions import insert_student
-from database.retrieval import get_student, get_students_for_search_bar, get_wardroberental_by_student, get_textbookrental_by_student
+from database.retrieval import (
+    get_student,
+    get_students_for_search_bar,
+    get_wardroberental_by_student,
+    get_textbookrental_by_student,
+    get_textbooks_and_renters,
+)
+from database.updates import (
+    update_pantry_purchase,
+    update_rented_cloth_db,
+    update_rented_textbook_db,
+)
 from database.dyn_queries import get_visits_for_student
 
 
@@ -123,7 +134,7 @@ def create_app(secure_client_credential=None):
         student_id = request.args.get('studentId')
 
         student_info = get_student(mydb, student_id)
-        print(student_info)
+
         if not student_info:
             return jsonify({"message": "Student does not exist in the database"}), 500
 
@@ -150,6 +161,83 @@ def create_app(secure_client_credential=None):
         }
 
         return jsonify(result)
+
+    @app.route("/update-grocery-visit", methods=["POST"])
+    @ms_identity_web.login_required
+    def update_grocery_visit():
+        data = request.get_json()
+        visitDate = data['visitDate']
+        visitDate = datetime.strptime(visitDate, '%m/%d/%Y').strftime('%Y-%m-%d') # Convert to MySQL date format
+        visitDetails = data['visitDetails']
+        studentInfo = data['student']
+
+        for item in visitDetails:
+            item_name = item['itemName']
+            quantity = item['itemCount']
+
+            is_updated = update_pantry_purchase(mydb, quantity, visitDate, studentInfo[0], item_name)
+
+            if not is_updated:
+                return jsonify({"message": "Failed to update grocery visit"}), 500
+
+        return jsonify({"message": "Grocery visit got inserted"}), 200
+
+    @app.route("/update-rented-cloth", methods=["POST"])
+    @ms_identity_web.login_required
+    def update_rented_cloth():
+        data = request.get_json()
+        visitDate = data["visitDate"]
+        visitDate = datetime.strptime(visitDate, "%m/%d/%Y").strftime(
+            "%Y-%m-%d"
+        )  # Convert to MySQL date format
+        cloth_id = data["clothId"]
+        is_returned = data["isChecked"]
+        studentInfo = data["student"]
+
+        is_updated = update_rented_cloth_db(
+            mydb, visitDate, studentInfo[0], cloth_id, is_returned
+        )
+
+        if not is_updated:
+            return jsonify({"message": "Rented Cloth could not be updated"}), 500
+
+        return jsonify({"message": "Rented Cloth has been updated"}), 200
+
+    @app.route("/update-rented-textbook", methods=["POST"])
+    @ms_identity_web.login_required
+    def update_rented_texbook():
+        data = request.get_json()
+        print(data)
+        visitDate = data["visitDate"]
+        visitDate = datetime.strptime(visitDate, "%m/%d/%Y").strftime(
+            "%Y-%m-%d"
+        )  # Convert to MySQL date format
+        textbook_name = data["textbookName"]
+        is_returned = data["isChecked"]
+        studentInfo = data["student"]
+
+        is_updated = update_rented_textbook_db(
+            mydb, visitDate, studentInfo[0], textbook_name, is_returned
+        )
+
+        if not is_updated:
+            return jsonify({"message": "Rented Textbook could not be updated"}), 500
+
+        return jsonify({"message": "Rented Textbook has been updated"}), 200
+
+    @app.route("/get-textbooks", methods=["GET"])
+    @ms_identity_web.login_required
+    def get_textbooks():
+
+        print("Getting textbooks")
+        result = get_textbooks_and_renters(mydb)
+
+        if (result):
+            return jsonify(result)
+        
+        return jsonify({"message": "Failed to retrieve textbooks"}), 500
+
+
 
     @app.route("/login")
     def login():

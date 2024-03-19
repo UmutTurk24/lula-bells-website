@@ -18,7 +18,7 @@ def get_visits_for_student(connection, student_id):
     """Retrieves the visits for the given student"""
     try:
         cursor = connection.cursor(buffered=True)
-        cursor.execute("CALL GetVisitsForStudent(%s)", (student_id,))
+        cursor.execute("CALL GetAllGroceryVisitDetailsForStudent(%s)", (student_id,))
         result = cursor.fetchall()
         cursor.close()
         # Check if the connection is alive after the procedure call
@@ -27,7 +27,7 @@ def get_visits_for_student(connection, student_id):
         return result
     except mysql.connector.Error as error_descriptor:
         print(
-            "Failed calling the GetVisitsForStudent procedure: {}".format(
+            "Failed calling the GetAllGroceryVisitDetailsForStudent procedure: {}".format(
                 error_descriptor
             )
         )

@@ -49,7 +49,7 @@ END;
 -- PROCEDURE: Get the items purchased on a specific date for a specific student
 CREATE PROCEDURE GetVisitDetailsForStudent(IN given_student_id INT, IN given_date DATE)
 BEGIN
-    SELECT pr.item_name, pr.quantity
+    SELECT pr.item_name, pr.quantity, pr.purchase_date
     FROM (
         SELECT s.student_id
         FROM Students s
@@ -59,6 +59,21 @@ BEGIN
         SELECT *
         FROM PantryPurchase pp
         WHERE pp.purchase_date = given_date
+    ) AS pr ON pr.student_id = st.student_id;
+END;
+
+-- PROCEDURE: Get the items purchased on a specific date for a specific student
+CREATE PROCEDURE GetAllGroceryVisitDetailsForStudent(IN given_student_id INT)
+BEGIN
+    SELECT pr.item_name, pr.quantity, pr.purchase_date
+    FROM (
+        SELECT s.student_id
+        FROM Students s
+        WHERE s.student_id = given_student_id
+    ) AS st
+    JOIN (
+        SELECT *
+        FROM PantryPurchase pp
     ) AS pr ON pr.student_id = st.student_id;
 END;
 
