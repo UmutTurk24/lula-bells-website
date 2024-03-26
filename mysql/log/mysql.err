@@ -52,3 +52,19 @@
 2024-03-12T23:07:34.289257Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2024-03-12T23:07:34.300306Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
 2024-03-12T23:07:34.300335Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.1.0/bin/mysqld: ready for connections. Version: '8.1.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.
+2024-03-25T20:09:18.002356Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-03-25T20:09:18.151510Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld (mysqld 8.3.0) starting as process 50453
+2024-03-25T20:09:18.154667Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-03-25T20:09:18.219051Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-03-25T20:09:18.381828Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-03-25T20:09:18.385700Z 1 [System] [MY-011090] [Server] Data dictionary upgrading from version '80023' to '80200'.
+2024-03-25T20:09:18.508934Z 1 [System] [MY-013413] [Server] Data dictionary upgrade from version '80023' to '80200' completed.
+2024-03-25T20:09:18.907301Z 4 [System] [MY-013381] [Server] Server upgrade from '80100' to '80300' started.
+2024-03-25T20:09:19.794473Z 4 [System] [MY-013381] [Server] Server upgrade from '80100' to '80300' completed.
+2024-03-25T20:09:19.806844Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2024-03-25T20:09:19.808759Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2024-03-25T20:09:19.821288Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-03-25T20:09:19.821303Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-03-25T20:09:19.825199Z 0 [Warning] [MY-015032] [Server] 'SET_USER_ID' (granted to 'root@localhost') is deprecated and will be removed in a future release.
+2024-03-25T20:09:19.827615Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
+2024-03-25T20:09:19.827650Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld: ready for connections. Version: '8.3.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.

@@ -58,7 +58,7 @@ BEGIN
     JOIN (
         SELECT *
         FROM PantryPurchase pp
-        WHERE pp.purchase_date = given_date
+        WHERE pp.purchase_ = given_date
     ) AS pr ON pr.student_id = st.student_id;
 END;
 

@@ -91,14 +91,14 @@ def update_pantry_purchase(connection, quantity, purchase_date, student_id, item
         return None
 
 
-def update_rented_cloth_db(connection, rental_date, student_id, cloth_id, is_returned):
+def update_rented_cloth_db(connection, due_date, student_id, cloth_id, is_returned):
     """Updates a rented clothing item in the database """
 
     try:
         cursor = connection.cursor()
         cursor.execute(
-            "UPDATE WardrobeRentals SET is_returned = %s WHERE student_id = %s AND cloth_id = %s AND rental_date = %s",
-            (is_returned, student_id, cloth_id, rental_date),
+            "UPDATE WardrobeRentals SET is_returned = %s WHERE student_id = %s AND cloth_id = %s AND due_date = %s",
+            (is_returned, student_id, cloth_id, due_date),
         )
         connection.commit()
         cursor.close()
@@ -108,14 +108,14 @@ def update_rented_cloth_db(connection, rental_date, student_id, cloth_id, is_ret
         return None
 
 
-def update_rented_textbook_db(connection, rental_date, student_id, textbook_name, is_returned):
+def update_rented_textbook_db(connection, due_date, student_id, textbook_name, is_returned):
     """Updates a rented textbook item in the database """
-
+    print(due_date, student_id, textbook_name, is_returned)
     try:
         cursor = connection.cursor()
         cursor.execute(
-            "UPDATE TextbookRentals SET is_returned = %s WHERE student_id = %s AND book_name = %s AND rental_date = %s",
-            (is_returned, student_id, textbook_name, rental_date),
+            "UPDATE TextbookRentals SET is_returned = %s WHERE student_id = %s AND book_name = %s AND due_date = %s",
+            (is_returned, student_id, textbook_name, due_date),
         )
         connection.commit()
         cursor.close()

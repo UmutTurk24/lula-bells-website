@@ -161,6 +161,14 @@ def get_pantry_purchase_by_startdate_and_enddate(
 def get_textbooks_and_renters(connection):
     """Returns all textbooks and renters information in the database"""
     cursor = connection.cursor()
+    cursor.execute("SELECT t.book_name, tr.rental_date, tr.is_returned FROM Textbooks as t LEFT JOIN (SELECT * FROM TextbookRentals as tr WHERE tr.is_returned = 0) as tr ON t.book_name = tr.book_name")
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+def get_clothes_and_renters(connection):
+    """Returns all clothes and renters information in the database"""
+    cursor = connection.cursor()
     cursor.execute("SELECT w.cloth_id, wr.rental_date, wr.is_returned FROM (SELECT * FROM Wardrobe w) as w LEFT JOIN (SELECT * FROM WardrobeRentals WHERE is_returned = 0) as wr ON w.cloth_id = wr.cloth_id")
     result = cursor.fetchall()
     cursor.close()

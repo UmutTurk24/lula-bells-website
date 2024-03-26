@@ -14,19 +14,15 @@ window.addEventListener('click', function (event) {
 });
 
 
-function showRentedClothModal(visitDate, clothId, notes, renter, student) {
+function showRentedClothModal(dueDate, clothId, notes, renter, student) {
     const visitModal = document.getElementById('rentedClothingModal');
     const visitDetailsContainer = document.getElementById('rentedClothingDetails');
-
-    console.log("visitDate: ", visitDate);
-    console.log("visitDetails: ", clothId);
-    console.log("student: ", student);
 
     // Clear previous details
     visitDetailsContainer.innerHTML = '';
 
     // Set the modal title
-    document.querySelector('#rentedClothingModal h2').textContent = `Rented Item Details - ${visitDate}`;
+    document.querySelector('#rentedClothingModal h2').textContent = `Rented Item Details - ${dueDate}`;
 
     // Create and append clothId
     const itemDiv = document.createElement('div');
@@ -74,7 +70,7 @@ function showRentedClothModal(visitDate, clothId, notes, renter, student) {
     submitButton.textContent = 'Submit';
     submitButton.classList.add('mt-4', 'px-4', 'py-2', 'bg-blue-500', 'text-white', 'rounded-md', 'focus:outline-none', 'focus:bg-blue-600');
     submitButton.addEventListener('click', function() {
-        submitRentedClothForm(visitDate, clothId, returnCheckbox.checked, student);
+        submitRentedClothForm(dueDate, clothId, returnCheckbox.checked, student);
     });
 
     visitDetailsContainer.appendChild(submitButton);
@@ -83,9 +79,9 @@ function showRentedClothModal(visitDate, clothId, notes, renter, student) {
     visitModal.classList.remove('hidden');
 }
 
-function submitRentedClothForm(visitDate, clothId, isChecked, student) {
+function submitRentedClothForm(dueDate, clothId, isChecked, student) {
     // Construct the form data
-    const data = {visitDate, clothId, isChecked, student};
+    const data = { dueDate, clothId, isChecked, student};
 
     console.log(data);
 

@@ -90,3 +90,10 @@ saveStudentButton.addEventListener('click', function () {
 closeModalButton.addEventListener('click', function () {
     hideCreateStudentModal();
 });
+
+window.addEventListener('click', function (event) {
+
+    if (event.target === createStudentModal) {
+        hideCreateStudentModal();
+    }
+});

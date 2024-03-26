@@ -14,7 +14,6 @@ async function fetchStudents() {
     // Convert the data to an array of student names
     return data.map(student => student);
 
-    console.log(data);
   } catch (error) {
     console.error('Error:', error);
   }
@@ -61,11 +60,13 @@ searchStudentInput.addEventListener('input', function () {
 });
 
 // Hide suggestions when clicking outside the search box
-document.addEventListener('click', function (event) {
+window.addEventListener('click', function (event) {
   if (!searchResults.contains(event.target) && event.target !== searchStudentInput) {
     searchResults.classList.add('hidden');
   }
 });
+
+
 
 // Prevent dropdown from closing when clicking on input
 searchStudentInput.addEventListener('click', function (event) {
@@ -96,8 +97,6 @@ async function queryDatabase(student) {
 
   // Gather all student information from the database
   var studentInfo = await fetchStudentInfo(studentId);
-
-  console.log(studentInfo);
 
   var student = studentInfo['studentInfo'];
   var previousVisits = studentInfo['previousVisits'];
@@ -148,7 +147,8 @@ function displayRentalInfo(wardrobeRentals, textbookRentals, student) {
 
       // Format the date
       let date = new Date(dueDate);
-      let dateString = date.toLocaleDateString();
+      let dateString = date.getUTCMonth() + 1 + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
+
 
       const rentalInfo = "Clothing ID: " + clothId + ", Due Date: " + dateString;
 
@@ -162,13 +162,17 @@ function displayRentalInfo(wardrobeRentals, textbookRentals, student) {
 
   textbookRentals.forEach(rental => {
     if (rental[4] == 0) {
+
       textbookName = rental[1];
       dueDate = rental[3];
       notes = rental[5];
 
       // Format the date
-      let date = new Date(dueDate);
-      let dateString = date.toLocaleDateString();
+      let date = new Date(dueDate); 
+      let dateString = date.getUTCMonth() + 1 + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
+
+
+
 
       const rentalInfo = "Textbook: " + textbookName + ", Due Date: " + dateString;
 
@@ -186,15 +190,13 @@ function displayGroceryInfo(previousVisits, student) {
   // Fill out the Previous Visits
   var previousVisitsField = document.getElementById('previousVisitsWindow');
   previousVisitsField.innerHTML = "";
-  console.log(previousVisits);
 
   // Group the item name and count based on the date
   let groupedVisits = {};
   previousVisits.forEach(visit => {
+    
     let date = new Date(visit[2]);
-    let dateString = date.toLocaleDateString();
-
-    console.log(dateString)
+    let dateString = date.getUTCMonth() + 1 + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
 
     if (groupedVisits[dateString] == undefined) {
       var itemName = visit[0];

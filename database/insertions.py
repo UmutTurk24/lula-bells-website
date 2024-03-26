@@ -196,6 +196,25 @@ def insert_user(connection, cursor, username, password):
         connection.close()
         exit(1)
 
+def insert_textbook_rental(connection, student_id, textbook_name, due_date):
+    """Inserts a textbook rental into the database"""
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "INSERT INTO TextbookRentals (student_id, book_name, rental_date, due_date, is_returned, notes) VALUES (%s, %s, CURDATE(), %s, 0, '')",
+            (student_id, textbook_name, due_date),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting textbook rental: {}".format(error_descriptor))
+        return False
+
+# DATE_ADD(CURDATE(), INTERVAL 14 DAY)
+
 ###############################
 #####     Formatters      #####
 ###############################

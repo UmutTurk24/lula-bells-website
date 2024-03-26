@@ -93,6 +93,10 @@ def create_database(cursor):
     """Creates the database"""
 
     try:
+        # Drop the database if it exists
+        cursor.execute("DROP DATABASE IF EXISTS {}".format(DB_NAME))
+
+        # Create the database
         cursor.execute(
             "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME)
         )
@@ -362,23 +366,23 @@ def add_test_data(connection, cursor):
         # Insert data into TextbookRentals table
 
         textbook_rentals_data = [
-            (801396004, "Math 101", "2023-05-15", "2023-05-20", 0, "Bad customer"),
-            (801396005, "Science 101", "2023-05-20", "2023-05-25", 0, "Bad customer"),
-            (801396006, "History 101", "2023-05-25", "2023-05-30", 0, "Bad customer"),
-            (801396007, "English 101", "2023-06-01", "2023-06-05", 0, "Bad customer"),
-            (801396008, "Art 101", "2023-06-05", "2023-06-10", 0, "Bad customer"),
-            (801396009, "Math 101", "2023-06-10", "2023-06-15", 0, "Bad customer"),
-            (801396010, "Science 101", "2023-06-15", "2023-06-20", 0, "Bad customer" ),
-            (801396011, "History 101", "2023-06-20", "2023-06-25", 0, "Bad customer" ),
-            (801396012, "English 101", "2023-06-25", "2023-06-30", 0, "Bad customer" ),
-            (801396007, "Art 101", "2023-07-01", "2023-07-05", 0, "Bad customer" ),
-            (801396008, "Math 101", "2023-07-05", "2023-07-10", 0, "Bad customer" ),
-            (801396008, "Science 101", "2023-07-10", "2023-07-15", 0, "Bad customer" ),
-            (801396009, "History 101", "2023-07-15", "2023-07-20", 0, "Bad customer" ),
-            (801396009, "English 101", "2023-07-20", "2023-07-25", 0, "Bad customer" ),
-            (801396009, "Art 101", "2023-07-25", "2023-07-30", 0, "Bad customer" ),
-            (801396009, "Math 101", "2023-08-01", "2023-08-05", 0, "Bad customer" ),
-            (801396009, "Science 101", "2023-08-05", "2023-08-10", 0, "Bad customer" ),
+            (801396004, "Math 101", "2023-05-15", "2023-05-20", 1, "Bad customer"),
+            (801396005, "Science 101", "2023-05-20", "2023-05-25", 1, "Bad customer"),
+            (801396006, "History 101", "2023-05-25", "2023-05-30", 1, "Bad customer"),
+            (801396007, "English 101", "2023-06-01", "2023-06-05", 1, "Bad customer"),
+            (801396008, "Art 101", "2023-06-05", "2023-06-10", 1, "Bad customer"),
+            (801396009, "Math 101", "2023-06-10", "2023-06-15", 1, "Bad customer"),
+            (801396010, "Science 101", "2023-06-15", "2023-06-20", 1, "Bad customer" ),
+            (801396011, "History 101", "2023-06-20", "2023-06-25", 1, "Bad customer" ),
+            (801396012, "English 101", "2023-06-25", "2023-06-30", 1, "Bad customer" ),
+            (801396007, "Art 101", "2023-07-01", "2023-07-05", 1, "Bad customer" ),
+            (801396008, "Math 101", "2023-07-05", "2023-07-10", 1, "Bad customer" ),
+            (801396008, "Science 101", "2023-07-10", "2023-07-15", 1, "Bad customer" ),
+            (801396009, "History 101", "2023-07-15", "2023-07-20", 1, "Bad customer" ),
+            (801396009, "English 101", "2023-07-20", "2023-07-25", 1, "Bad customer" ),
+            (801396009, "Art 101", "2023-07-25", "2023-07-30", 1, "Bad customer" ),
+            (801396009, "Math 101", "2023-08-01", "2023-08-05", 1, "Bad customer" ),
+            (801396009, "Science 101", "2023-08-05", "2023-08-10", 1, "Bad customer" ),
         ]
 
         cursor.executemany(

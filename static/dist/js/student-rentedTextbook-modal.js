@@ -14,19 +14,15 @@ window.addEventListener('click', function (event) {
 });
 
 
-function showRentedTextbookModal(visitDate, textbookName, notes, student) {
+function showRentedTextbookModal(dueDate, textbookName, notes, student) {
     const visitModal = document.getElementById('rentedTextbookModal');
     const visitDetailsContainer = document.getElementById('rentedTextbookDetails');
-
-    console.log("visitDate: ", visitDate);
-    console.log("visitDetails: ", textbookName);
-    console.log("student: ", student);
 
     // Clear previous details
     visitDetailsContainer.innerHTML = '';
 
     // Set the modal title
-    document.querySelector('#rentedTextbookModal h2').textContent = `Rented Item Details - ${visitDate}`;
+    document.querySelector('#rentedTextbookModal h2').textContent = `Rented Item Details - ${dueDate}`;
 
     // Create and append textbookName
     const itemDiv = document.createElement('div');
@@ -66,7 +62,7 @@ function showRentedTextbookModal(visitDate, textbookName, notes, student) {
     submitButton.textContent = 'Submit';
     submitButton.classList.add('mt-4', 'px-4', 'py-2', 'bg-blue-500', 'text-white', 'rounded-md', 'focus:outline-none', 'focus:bg-blue-600');
     submitButton.addEventListener('click', function() {
-        submitRentedTextbookForm(visitDate, textbookName, returnCheckbox.checked, student);
+        submitRentedTextbookForm(dueDate, textbookName, returnCheckbox.checked, student);
     });
 
     visitDetailsContainer.appendChild(submitButton);
@@ -75,9 +71,9 @@ function showRentedTextbookModal(visitDate, textbookName, notes, student) {
     visitModal.classList.remove('hidden');
 }
 
-function submitRentedTextbookForm(visitDate, textbookName, isChecked, student) {
+function submitRentedTextbookForm(dueDate, textbookName, isChecked, student) {
     // Construct the form data
-    const data = {visitDate, textbookName, isChecked, student};
+    const data = { dueDate, textbookName, isChecked, student};
 
     console.log(data);
 

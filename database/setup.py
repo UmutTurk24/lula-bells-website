@@ -79,6 +79,7 @@ def update_db_schema():
         cursor.execute(
             "GRANT DROP, INSERT, UPDATE, DELETE, SELECT ON LulaBells.* TO %s@'localhost' WITH GRANT OPTION", ('guest',)
         )
+
         connection.commit()
     except mysql.connector.Error as error_descriptor:
         print("Failed inserting user: {}".format(error_descriptor))

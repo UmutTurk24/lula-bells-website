@@ -25,7 +25,7 @@
         </div>
     </nav>
 
-    <!-- Modal for displaying grocery/clothing/textbook visit details -->
+    <!-- Modals for displaying grocery/clothing/textbook visit details -->
     {% include 'items/visit-modals.html' %}
 
     <!-- Search bar -->
@@ -102,11 +102,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="col-span-1">
                         <p class="mb-2">
-                            <span class="font-semibold">Name:</span> 
+                            <span class="font-semibold">Name:</span>
                             <span id="studentNameField">John Doe</span>
                         </p>
                         <p class="mb-2">
-                            <span class="font-semibold">Student ID:</span> 
+                            <span class="font-semibold">Student ID:</span>
                             <span id="studentIdField">ABC123</span>
                         </p>
                         <p class="mb-2">
@@ -132,13 +132,21 @@
                     <!-- First Row -->
                     <div class="grid grid-cols-2 gap-6 mb-6">
                         <!-- Box 1 -->
-                        <div id="triggerAcademicPopup" class="bg-blue-900 p-4 mx-2 text-center rounded-2xl hover:bg-blue-600 cursor-pointer" onclick="showAcademicModalMenu()">
+                        <div id="triggerAcademicPopup"
+                            class="bg-blue-900 p-4 mx-2 text-center rounded-2xl hover:bg-blue-600 cursor-pointer"
+                            onclick="showAcademicModalMenu()">
                             <img src="../static/dist/Academics.png" alt="Logo 1" class="mx-auto mb-4" />
                             <h2 class="text-3xl font-bold text-white">Academics</h2>
                         </div>
 
                         <!-- Box 2 -->
-                        <div class="bg-blue-500 p-4 mx-2 text-center rounded-2xl">
+                        <!-- <div class="bg-blue-500 p-4 mx-2 text-center rounded-2xl">
+                            <img src="../static/dist/Clothing.png" alt="Logo 2" class="mx-auto mb-4" />
+                            <h2 class="text-3xl font-bold text-white">Clothing</h2>
+                        </div> -->
+
+                        <div id="triggerClothingPopup" class="bg-blue-500 p-4 mx-2 text-center rounded-2xl hover:bg-blue-700 cursor-pointer"
+                            onclick="showClothingModalMenu()">
                             <img src="../static/dist/Clothing.png" alt="Logo 2" class="mx-auto mb-4" />
                             <h2 class="text-3xl font-bold text-white">Clothing</h2>
                         </div>
@@ -165,7 +173,8 @@
                     <div class="bg-white rounded-lg shadow-md p-2">
                         <div class="container mx-auto mt-2">
                             <h2 class="text-2xl font-bold mb-4">Previous Visits</h2>
-                            <div id="previousVisitsWindow" class="overflow-y-auto max-h-40 border border-gray-300 rounded-md p-4">
+                            <div id="previousVisitsWindow"
+                                class="overflow-y-auto max-h-40 border border-gray-300 rounded-md p-4">
                                 <!-- Sample previous visits - Replace with dynamic content -->
                                 <div class="mb-2 cursor-pointer hover:bg-gray-400 bg-gray-200 p-2"
                                     onclick="showModal('Visit 1 Details')">
@@ -188,7 +197,8 @@
                     <div class="bg-white rounded-lg shadow-md p-2">
                         <div class="container mx-auto mt-2">
                             <h2 class="text-2xl font-bold mb-4">Rented Items</h2>
-                            <div id="rentedItemsWindow" class="overflow-y-auto max-h-40 border border-gray-300 rounded-md p-4">
+                            <div id="rentedItemsWindow"
+                                class="overflow-y-auto max-h-40 border border-gray-300 rounded-md p-4">
                                 <!-- Sample previous rented items  -->
                                 <div class="mb-2 cursor-pointer hover:bg-gray-100 p-2">
                                     Rented item 1
@@ -219,29 +229,12 @@
         </div>
     </div>
 
+    <!-- New Item Checkout Modals -->
+    {% include 'items/checkout-modals.html' %}
+xw
 
-    <!-- HTML structure for the pop-up menu -->
-    <div id="academicModalMenu" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-24 rounded-md max-w-4xl">
-            <button onclick="hideAcademicPopupMenu()"
-                class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                    </path>
-                </svg>
-            </button>
-            <h2 class="text-3xl font-bold mb-4">Select Textbooks</h2>
-            <input id="searchAcademicInput" type="text" placeholder="Search textbooks..." autocomplete="off"
-                class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
-            <div id="selectedTextbooks" class="mb-4"></div>
-            <button id="saveButton" onclick="saveAndExit()"
-                class="w-full px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600 hover:bg-blue-800 cursor-pointer">Save and
-                Exit</button>
-            <button onclick="hideAcademicPopupMenu()"
-                class="w-full mt-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md focus:outline-none hover:bg-gray-400">Cancel</button>
-        </div>
-    </div>
+    <!-- Include student clothing visit modal.js -->
+    <script src="../static/dist/js/student-clothing-visit.js"></script>
 
     <!-- Include student textbook visit modal.js -->
     <script src="../static/dist/js/student-textbook-visit.js"></script>

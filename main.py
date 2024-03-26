@@ -20,13 +20,14 @@ from ms_identity_web.configuration import AADConfig
 import mysql.connector
 
 from database.schema import connect_to_database
-from database.insertions import insert_student
+from database.insertions import insert_student, insert_textbook_rental
 from database.retrieval import (
     get_student,
     get_students_for_search_bar,
     get_wardroberental_by_student,
     get_textbookrental_by_student,
     get_textbooks_and_renters,
+    get_clothes_and_renters,
 )
 from database.updates import (
     update_pantry_purchase,
@@ -66,10 +67,10 @@ def create_app(secure_client_credential=None):
     AADConfig.sanity_check_configs(aad_configuration)
     adapter = FlaskContextAdapter(
         app
-    )  # ms identity web for python: instantiate the flask adapter
+    )  
     ms_identity_web = IdentityWebPython(
         aad_configuration, adapter
-    )  # then instantiate ms identity web for python
+    )  
 
     # Connect to the database
     mydb, mycursor = connect_to_database()
@@ -166,8 +167,10 @@ def create_app(secure_client_credential=None):
     @ms_identity_web.login_required
     def update_grocery_visit():
         data = request.get_json()
-        visitDate = data['visitDate']
-        visitDate = datetime.strptime(visitDate, '%m/%d/%Y').strftime('%Y-%m-%d') # Convert to MySQL date format
+        due_date = data["dueDate"]
+        due_date = datetime.strptime(due_date, "%m/%d/%Y").strftime(
+            "%Y-%m-%d"
+        )  # Convert to MySQL date format
         visitDetails = data['visitDetails']
         studentInfo = data['student']
 
@@ -175,7 +178,9 @@ def create_app(secure_client_credential=None):
             item_name = item['itemName']
             quantity = item['itemCount']
 
-            is_updated = update_pantry_purchase(mydb, quantity, visitDate, studentInfo[0], item_name)
+            is_updated = update_pantry_purchase(
+                mydb, quantity, due_date, studentInfo[0], item_name
+            )
 
             if not is_updated:
                 return jsonify({"message": "Failed to update grocery visit"}), 500
@@ -186,16 +191,17 @@ def create_app(secure_client_credential=None):
     @ms_identity_web.login_required
     def update_rented_cloth():
         data = request.get_json()
-        visitDate = data["visitDate"]
-        visitDate = datetime.strptime(visitDate, "%m/%d/%Y").strftime(
-            "%Y-%m-%d"
-        )  # Convert to MySQL date format
+
+        # Convert to MySQL date format
+        due_date = data["dueDate"]
+        due_date = datetime.strptime(due_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+
         cloth_id = data["clothId"]
         is_returned = data["isChecked"]
         studentInfo = data["student"]
 
         is_updated = update_rented_cloth_db(
-            mydb, visitDate, studentInfo[0], cloth_id, is_returned
+            mydb, due_date, studentInfo[0], cloth_id, is_returned
         )
 
         if not is_updated:
@@ -207,9 +213,9 @@ def create_app(secure_client_credential=None):
     @ms_identity_web.login_required
     def update_rented_texbook():
         data = request.get_json()
-        print(data)
-        visitDate = data["visitDate"]
-        visitDate = datetime.strptime(visitDate, "%m/%d/%Y").strftime(
+
+        due_date = data["dueDate"]
+        due_date = datetime.strptime(due_date, "%m/%d/%Y").strftime(
             "%Y-%m-%d"
         )  # Convert to MySQL date format
         textbook_name = data["textbookName"]
@@ -217,7 +223,7 @@ def create_app(secure_client_credential=None):
         studentInfo = data["student"]
 
         is_updated = update_rented_textbook_db(
-            mydb, visitDate, studentInfo[0], textbook_name, is_returned
+            mydb, due_date, studentInfo[0], textbook_name, is_returned
         )
 
         if not is_updated:
@@ -232,10 +238,49 @@ def create_app(secure_client_credential=None):
         print("Getting textbooks")
         result = get_textbooks_and_renters(mydb)
 
-        if (result):
-            return jsonify(result)
-        
-        return jsonify({"message": "Failed to retrieve textbooks"}), 500
+        print(result)
+
+        if not result:
+            return jsonify({"message": "Failed to retrieve textbooks"}), 500
+
+        return jsonify(result)
+
+    @app.route("/rent-textbooks", methods=["POST"])
+    @ms_identity_web.login_required
+    def rent_textbooks():
+
+        data = request.get_json()
+
+        print("Renting textbooks")
+        print(data)
+
+        student_id = data["studentId"]
+        textbooks = data["textbooks"]
+        due_date = data["dueDate"]
+
+        for textbook in textbooks:
+            textbook_name = textbook["name"]
+
+            is_inserted = insert_textbook_rental(mydb, student_id, textbook_name, due_date)
+
+            if not is_inserted:
+                return jsonify({"message": "Failed to rent textbooks"}), 500
+
+        return jsonify({"message": "Textbooks have been rented"}), 200
+
+    @app.route("/get-clothes", methods=["GET"])
+    @ms_identity_web.login_required
+    def get_clothings():
+
+        print("Getting textbooks")
+        result = get_clothes_and_renters(mydb)
+
+        print(result)
+
+        if not result:
+            return jsonify({"message": "Failed to retrieve textbooks"}), 500
+
+        return jsonify(result)
 
 
 
