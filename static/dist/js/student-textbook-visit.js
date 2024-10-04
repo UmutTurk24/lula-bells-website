@@ -6,7 +6,7 @@ async function showAcademicModalMenu() {
     var textbookInfos = {}
     // Fetch all of the textbooks
     try {
-        textbookInfos = await fetch('/get-textbooks', {
+        textbookInfos = await fetch('/inventory/get-textbooks', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,9 +30,10 @@ async function showAcademicModalMenu() {
         };
     });
 
-
-
     academicModalMenu.classList.remove('hidden');
+
+    console.log(textbooks);
+    console.log(academicModalMenu);
     
     const searchAcademicInput = document.getElementById('searchAcademicInput');
     const academicSearchResults = document.getElementById('academicSearchResults');
@@ -150,7 +151,7 @@ function saveTextbookAndExit() {
     };
     
     // Update the rented status of the textbooks
-    fetch('/rent-textbooks', {
+    fetch('/inventory/rent-textbooks', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -165,10 +166,6 @@ function saveTextbookAndExit() {
             console.error('Error:', error);
     });
 
-
-
-
-    console.log('Save and exit');
     hideAcademicPopupMenu();
 }
 

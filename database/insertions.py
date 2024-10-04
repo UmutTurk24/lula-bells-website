@@ -61,8 +61,28 @@ def insert_pantryitem(connection, cursor, item_name, quantity=0, cost=0.0):
         exit(1)
 
 
-def insert_textbooksitem(connection, cursor, book_name, owned_status=0):
+def insert_grocery(connection, item_name, quantity, cost=0):
+    """Inserts a grocery item into the database"""
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "INSERT INTO Pantry (item_name, quantity, cost) VALUES (%s, %s, %s)",
+            (item_name, quantity, cost),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting grocery item: {}".format(error_descriptor))
+        return False
+
+
+def insert_textbook(connection, book_name, owned_status=0):
     """Inserts a textbook item into the database"""
+
+    cursor = connection.cursor()
 
     try:
         cursor.execute(
@@ -70,78 +90,46 @@ def insert_textbooksitem(connection, cursor, book_name, owned_status=0):
             (book_name, owned_status),
         )
         connection.commit()
-    except mysql.connector.Error as error_descriptor:
-        print("Failed inserting Textbooks item: {}".format(error_descriptor))
         cursor.close()
-        connection.close()
-        exit(1)
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting textbook: {}".format(error_descriptor))
+        return False
 
 
-def insert_wardrobeitem(connection, cursor, cloth_id):
-    """Inserts a Wardrobe item into the database"""
+def insert_cloth(connection, cloth_id):
+    """Inserts a Clothes item into the database"""
+
+    cursor = connection.cursor()
 
     try:
         cursor.execute(
-            "INSERT INTO Wardrobe (cloth_id) VALUES (%s)",
+            "INSERT INTO Clothes (cloth_id) VALUES (%s)",
             ([cloth_id]),
         )
         connection.commit()
-    except mysql.connector.Error as error_descriptor:
-        print("Failed inserting Wardrobe item: {}".format(error_descriptor))
         cursor.close()
-        connection.close()
-        exit(1)
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting Clothes item: {}".format(error_descriptor))
+        return False
 
+def insert_kitchenware(connection, kitchenware_id):
+    """Inserts a Kitchenware item into the database"""
 
-def insert_wardroberental(
-    connection,
-    cursor,
-    student_id,
-    cloth_id,
-    rental_date,
-    due_date,
-    is_returned=False,
-    notes="",
-):
-    """Inserts a Wardrobe rental into the database"""
+    cursor = connection.cursor()
 
     try:
         cursor.execute(
-            "INSERT INTO WardrobeRentals (student_id, cloth_id, rental_date, due_date, is_returned, notes) VALUES (%s, %s, %s, %s, %s, %s)",
-            (student_id, cloth_id, rental_date, due_date, is_returned, notes),
+            "INSERT INTO Kitchenware (kitchenware_id) VALUES (%s)",
+            ([kitchenware_id]),
         )
         connection.commit()
-    except mysql.connector.Error as error_descriptor:
-        print("Failed inserting Wardrobe rental: {}".format(error_descriptor))
         cursor.close()
-        connection.close()
-        exit(1)
-
-
-def insert_textbookrental(
-    connection,
-    cursor,
-    student_id,
-    book_name,
-    rental_date,
-    due_date,
-    is_returned=False,
-    notes="",
-):
-    """Inserts a Textbook rental into the database"""
-
-    try:
-        cursor.execute(
-            "INSERT INTO TextbookRentals (student_id, book_name, rental_date, due_date, is_returned, notes) VALUES (%s, %s, %s, %s, %s, %s)",
-            (student_id, book_name, rental_date, due_date, is_returned, notes),
-        )
-        connection.commit()
+        return True
     except mysql.connector.Error as error_descriptor:
-        print("Failed inserting Textbook rental: {}".format(error_descriptor))
-        cursor.close()
-        connection.close()
-        exit(1)
-
+        print("Failed inserting Kitchenware item: {}".format(error_descriptor))
+        return False
 
 def insert_pantrypurchase(
     connection,
@@ -213,7 +201,61 @@ def insert_textbook_rental(connection, student_id, textbook_name, due_date):
         print("Failed inserting textbook rental: {}".format(error_descriptor))
         return False
 
-# DATE_ADD(CURDATE(), INTERVAL 14 DAY)
+
+def insert_cloth_rental(connection, student_id, cloth_id, due_date, renter_info =""):
+    """Inserts a cloth rental into the database"""
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "INSERT INTO ClothRentals (student_id, cloth_id, rental_date, due_date, is_returned, notes, renter_info) VALUES (%s, %s, CURDATE(), %s, 0, '', %s)",
+            (student_id, cloth_id, due_date, renter_info),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting kitchenware rental: {}".format(error_descriptor))
+        return False
+
+
+def insert_kitchenware_rental(
+    connection, student_id, kitchenware_id, due_date, renter_info=""
+):
+    """Inserts a cloth rental into the database"""
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "INSERT INTO KitchenwareRentals (student_id, kitchenware_id, rental_date, due_date, is_returned, notes, renter_info) VALUES (%s, %s, CURDATE(), %s, 0, '', %s)",
+            (student_id, kitchenware_id, due_date, renter_info),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting kitchenware rental: {}".format(error_descriptor))
+        return False
+
+def insert_pantry_purchase(connection, student_id, item_name, quantity):
+    """Inserts a pantry purchase into the database"""
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "INSERT INTO PantryPurchase (student_id, item_name, quantity, purchase_date) VALUES (%s, %s, %s, CURDATE())",
+            (student_id, item_name, quantity),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed inserting pantry purchase: {}".format(error_descriptor))
+        return False
+
 
 ###############################
 #####     Formatters      #####

@@ -1,20 +1,14 @@
+<!-- Academic Modal Menu -->
 <div id="academicModalMenu" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-24 rounded-md min-w-[700px] max-w-4xl">
-        <button onclick="hideAcademicPopupMenu()"
-            class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
-            <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                </path>
-            </svg>
-        </button>
+
         <h2 class="text-3xl font-bold mb-4">Select Textbooks</h2>
         <input id="searchAcademicInput" type="text" placeholder="Search textbooks..." autocomplete="off"
             class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
 
         <!-- Search results -->
         <div id="academicSearchResults"
-            class="absolute bg-white w-full border border-gray-300 rounded-md shadow-lg z-10 hidden"></div>
+            class="absolute bg-white w-1/2 border border-gray-300 rounded-md shadow-lg z-10 hidden"></div>
 
         <!-- Due date input field -->
         <label for="textbookDueDate" class="block text-gray-700 font-bold mb-2">Due Date</label>
@@ -31,36 +25,87 @@
     </div>
 </div>
 
-
+<!-- Clothing Modal Menu -->
 <div id="clothingModalMenu" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-24 rounded-md min-w-[700px] max-w-4xl">
-        <button onclick="hideClothingPopupMenu()"
-            class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
-            <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                </path>
-            </svg>
-        </button>
+
         <h2 class="text-3xl font-bold mb-4">Select Clothing</h2>
         <input id="searchClothingInput" type="text" placeholder="Search clothing..." autocomplete="off"
             class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
 
         <!-- Search results -->
         <div id="clothingSearchResults"
-            class="absolute bg-white w-full border border-gray-300 rounded-md shadow-lg z-10 hidden"></div>
+            class="absolute bg-white w-1/2 border border-gray-300 rounded-md shadow-lg z-10 hidden"></div>
 
         <!-- Due date input field -->
         <label for="clothingDueDate" class="block text-gray-700 font-bold mb-2">Due Date</label>
         <input type="date" id="clothingDueDate" name="clothingDueDate"
             class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
 
-        <div id="selectedClothes" class="mb-4"></div>
-        <button id="saveButton" onclick="saveClothesAndExit()"
+        <span class="block text-gray-700 font-bold mb-2">Selected Clothes</span>
+        <div id="selectedClothes" class="overflow-y-auto max-h-48 mb-4 p-2 border-2 border-gray-200 rounded-md"></div>
+
+        <button onclick="saveClothesAndExit()"
             class="w-full px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600 hover:bg-blue-800 cursor-pointer">Save
             and Exit
         </button>
-        <button onclick="hideClothingPopupMenu()"
+        <button onclick="hideClothesPopupMenu()"
+            class="w-full mt-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md focus:outline-none hover:bg-gray-400">Cancel</button>
+    </div>
+</div>
+
+<!-- Kitchenware Modal Menu -->
+<div id="kitchenwareModalMenu"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-24 rounded-md min-w-[700px] max-w-4xl">
+
+        <h2 class="text-3xl font-bold mb-4">Select Kitchenware</h2>
+        <input id="searchKitchenwareInput" type="text" placeholder="Search kitchenware..." autocomplete="off"
+            class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
+
+        <!-- Search results -->
+        <div id="kitchenwareSearchResults"
+            class="absolute bg-white w-1/2 border border-gray-300 rounded-md shadow-lg z-10 hidden"></div>
+
+        <!-- Due date input field -->
+        <label for="kitchenwareDueDate" class="block text-gray-700 font-bold mb-2">Due Date</label>
+        <input type="date" id="kitchenwareDueDate" name="kitchenwareDueDate"
+            class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
+
+        <span class="block text-gray-700 font-bold mb-2">Selected Kitchenware</span>
+        <div id="selectedKitchenware" class="overflow-y-auto max-h-48 mb-4 p-2 border-2 border-gray-200 rounded-md">
+        </div>
+
+        <button onclick="saveKitchenwareAndExit()"
+            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600 hover:bg-blue-800 cursor-pointer">Save
+            and Exit
+        </button>
+        <button onclick="hideKitchenwarePopupMenu()"
+            class="w-full mt-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md focus:outline-none hover:bg-gray-400">Cancel</button>
+    </div>
+</div>
+
+<!-- Grocery Modal Menu -->
+<div id="groceryModalMenu" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-24 rounded-md min-w-[700px] max-w-4xl">
+        <h2 class="text-3xl font-bold mb-4">Select Groceries</h2>
+        <input id="searchGroceryInput" type="text" placeholder="Search groceries..." autocomplete="off"
+            class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500">
+
+        <!-- Search results -->
+        <div id="grocerySearchResults"
+            class="absolute bg-white w-1/2 border border-gray-300 rounded-md shadow-lg z-10 hidden"></div>
+
+        <span class="block text-gray-700 font-bold mb-2">Selected Groceries</span>
+        <!-- <div id="selectedGroceries" class="mb-4 p-2 border-2 border-gray-200 rounded-md"> -->
+        <div id="selectedGroceries" class="overflow-y-auto max-h-96 mb-4 p-2 border-2 border-gray-200 rounded-md">
+        </div>
+
+        <button onclick="saveGroceryAndExit()"
+            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none focus:bg-blue-600 hover:bg-blue-800 cursor-pointer">Save
+            and Exit
+        </button>
+        <button onclick="hideGroceryPopupMenu()"
             class="w-full mt-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md focus:outline-none hover:bg-gray-400">Cancel</button>
     </div>
 </div>

@@ -68,3 +68,154 @@
 2024-03-25T20:09:19.825199Z 0 [Warning] [MY-015032] [Server] 'SET_USER_ID' (granted to 'root@localhost') is deprecated and will be removed in a future release.
 2024-03-25T20:09:19.827615Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
 2024-03-25T20:09:19.827650Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld: ready for connections. Version: '8.3.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.
+2024-04-07T23:42:09.568381Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-04-07T23:42:09.716051Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld (mysqld 8.3.0) starting as process 30216
+2024-04-07T23:42:09.719657Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-04-07T23:42:09.739598Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-04-07T23:42:10.005658Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-04-07T23:42:10.068658Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2024-04-07T23:42:10.070549Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2024-04-07T23:42:10.078589Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-04-07T23:42:10.078607Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-04-07T23:42:10.083642Z 0 [Warning] [MY-015032] [Server] 'SET_USER_ID' (granted to 'root@localhost') is deprecated and will be removed in a future release.
+2024-04-07T23:42:10.086462Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
+2024-04-07T23:42:10.086506Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld: ready for connections. Version: '8.3.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.
+2024-04-07T23:42:26.549060Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-04-07T23:42:26.694294Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld (mysqld 8.3.0) starting as process 30296
+2024-04-07T23:42:26.696328Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-04-07T23:42:26.699751Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-04-07T23:42:26.705272Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:27.710467Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:28.711145Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:29.715281Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:30.720463Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:31.725735Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:32.729877Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:33.730472Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:34.735708Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:35.740879Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:36.746192Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:37.747164Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:38.749057Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:39.752830Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:40.754197Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:41.759373Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:42.760419Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:43.765572Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:44.766156Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:45.771304Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:46.776466Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:47.781815Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:48.784442Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:49.789602Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:50.794321Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:51.799599Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:52.802684Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:53.805253Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:54.807914Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:55.812252Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:56.817219Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:57.822500Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:58.825361Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:42:59.830605Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:00.834553Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:01.837686Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:02.839888Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:03.842547Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:04.847597Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:05.851862Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:06.856179Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:07.861494Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:08.865527Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:09.869202Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:10.873841Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:11.878108Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:12.878825Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:13.884093Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:14.885712Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:15.890975Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:16.896377Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:17.901613Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:18.903838Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:19.905118Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:20.909177Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:21.914482Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:22.917426Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:23.920941Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:24.926248Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:25.929638Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:26.934951Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:27.939479Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:28.943230Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:29.947220Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:30.952492Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:31.954063Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:32.958283Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:33.962817Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:34.964098Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:35.967287Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:36.968667Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:37.973878Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:38.978472Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:39.983798Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:40.988206Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:41.993472Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:42.995290Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:44.000581Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:45.005107Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:46.009936Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:47.013931Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:48.017082Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:49.020730Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:50.026012Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:51.031274Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:52.036561Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:53.037106Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:54.040531Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:55.045839Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:56.050540Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:57.051593Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:58.053733Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:43:59.058411Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:00.063720Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:01.069029Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:02.071627Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:03.076977Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:04.080756Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:05.086075Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:06.091395Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:07.093199Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 35
+2024-04-07T23:44:07.093390Z 1 [ERROR] [MY-012592] [InnoDB] Operating system error number 35 in a file operation.
+2024-04-07T23:44:07.093439Z 1 [ERROR] [MY-012596] [InnoDB] Error number 35 means 'Resource temporarily unavailable'
+2024-04-07T23:44:07.093478Z 1 [ERROR] [MY-012215] [InnoDB] Cannot open datafile './ibdata1'
+2024-04-07T23:44:07.093512Z 1 [ERROR] [MY-012959] [InnoDB] Could not open or create the system tablespace. If you tried to add new data files to the system tablespace, and it failed here, you should now edit innodb_data_file_path in my.cnf back to what it was, and remove the new ibdata files InnoDB created in this failed attempt. InnoDB only wrote those files full of zeros, but did not yet use them in any way. But be careful: do not remove old data files which contain your precious data!
+2024-04-07T23:44:07.093569Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Cannot open a file.
+2024-04-07T23:44:07.094346Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2024-04-07T23:44:07.094596Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-04-07T23:44:07.094653Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-04-07T23:44:07.098697Z 0 [System] [MY-010910] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld: Shutdown complete (mysqld 8.3.0)  Homebrew.
+2024-04-07T23:44:07.098749Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+2024-05-07T16:21:49.473098Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-05-07T16:21:49.626741Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld (mysqld 8.3.0) starting as process 78514
+2024-05-07T16:21:49.629846Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-05-07T16:21:49.651742Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-05-07T16:21:49.805008Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-05-07T16:21:49.860254Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2024-05-07T16:21:49.862141Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2024-05-07T16:21:49.885553Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-05-07T16:21:49.885572Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-05-07T16:21:49.890735Z 0 [Warning] [MY-015032] [Server] 'SET_USER_ID' (granted to 'root@localhost') is deprecated and will be removed in a future release.
+2024-05-07T16:21:49.894807Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
+2024-05-07T16:21:49.894856Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld: ready for connections. Version: '8.3.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.
+2024-05-22T05:45:25.298477Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2024-05-22T05:45:25.459152Z 0 [System] [MY-010116] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld (mysqld 8.3.0) starting as process 55646
+2024-05-22T05:45:25.466621Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/umut/Github/lula-bells-website/mysql/data/ is case insensitive
+2024-05-22T05:45:25.489106Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2024-05-22T05:45:25.806280Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2024-05-22T05:45:25.909976Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2024-05-22T05:45:25.911845Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2024-05-22T05:45:25.931846Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2024-05-22T05:45:25.931862Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2024-05-22T05:45:25.939456Z 0 [Warning] [MY-015032] [Server] 'SET_USER_ID' (granted to 'root@localhost') is deprecated and will be removed in a future release.
+2024-05-22T05:45:25.944766Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '127.0.0.1' port: 33060, socket: /tmp/mysqlx.sock
+2024-05-22T05:45:25.944797Z 0 [System] [MY-010931] [Server] /opt/homebrew/Cellar/mysql/8.3.0_1/bin/mysqld: ready for connections. Version: '8.3.0'  socket: '/Users/umut/Github/lula-bells-website/mysql/socket'  port: 3306  Homebrew.

@@ -18,6 +18,7 @@ function showRentedTextbookModal(dueDate, textbookName, notes, student) {
     const visitModal = document.getElementById('rentedTextbookModal');
     const visitDetailsContainer = document.getElementById('rentedTextbookDetails');
 
+    console.log(visitModal);
     // Clear previous details
     visitDetailsContainer.innerHTML = '';
 
@@ -78,7 +79,7 @@ function submitRentedTextbookForm(dueDate, textbookName, isChecked, student) {
     console.log(data);
 
     // Submit the form (you need to specify the URL where to submit the form data)
-    fetch('/update-rented-textbook', {
+    fetch('/inventory/update-rented-textbook', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

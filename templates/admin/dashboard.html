@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="../../static/dist/css/output.css" />
+
+</head>
+<body class="bg-gray-100">
+
+    <!-- Admin Navbar -->
+    {% include 'items/admin-nav-bar.html' %}
+
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4">
+
+        <!-- Section: Adding/Removing Items -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Manage Inventory</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h3 class="text-lg font-semibold">Textbooks</h3>
+                    <button onclick="location.href='/admin/dashboard/textbooks'" class="bg-green-500 text-white px-4 py-2 rounded mt-2">To Textbook Inventory</button>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Grocery Items</h3>
+                    <button onclick="location.href='/admin/dashboard/grocery'" class="bg-green-500 text-white px-4 py-2 rounded mt-2">To Grocery Inventory</button>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Clothing Items</h3>
+                    <button onclick="location.href='/admin/dashboard/clothes'" class="bg-green-500 text-white px-4 py-2 rounded mt-2">To Clothing Inventory</button>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Kitchenware</h3>
+                    <button onclick="location.href='/admin/dashboard/kitchenware'" class="bg-green-500 text-white px-4 py-2 rounded mt-2">To Kitchenware Inventory</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Histogram of Visits -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Visits Histogram</h2>
+            <div class="bg-white p-4 rounded shadow-md">
+                <!-- Placeholder for histogram -->
+                <div class="h-64 bg-gray-200 flex items-center justify-center">
+                    <span class="text-gray-500">Histogram of visits for the current week</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Reports and Adding Volunteers -->
+        <section>
+            <h2 class="text-xl font-semibold mb-4">Actions</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Create Report 1</button>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Create Report 2</button>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Create Report 3</button>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Create Report 4</button>
+                </div>
+                <div>
+                    <button class="bg-purple-500 text-white px-4 py-2 rounded mt-2" onclick="location.href='/admin/dashboard/users'">User List</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- Load new-user-modal.js -->
+    <script src="../static/dist/js/new-user-modal.js"></script>
+</body>
+</html>

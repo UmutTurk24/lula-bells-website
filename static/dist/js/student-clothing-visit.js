@@ -6,7 +6,7 @@ async function showClothingModalMenu() {
     var clothingInfos = {}
     // Fetch all of the clothes
     try {
-        clothingInfos = await fetch('/get-clothes', {
+        clothingInfos = await fetch('/inventory/get-clothes', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ async function showClothingModalMenu() {
 
 
 // Function to hide the pop-up menu
-function hideAcademicPopupMenu() {
+function hideClothesPopupMenu() {
     const clothingModalMenu = document.getElementById('clothingModalMenu');
     clothingModalMenu.classList.add('hidden');
 }
@@ -150,7 +150,7 @@ function saveClothesAndExit() {
     };
 
     // Update the rented status of the clothes
-    fetch('/rent-clothings', {
+    fetch('/inventory/rent-clothes', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -166,8 +166,7 @@ function saveClothesAndExit() {
         });
 
 
-    console.log('Save and exit');
-    hideAcademicPopupMenu();
+    hideClothesPopupMenu();
 }
 
 // Close the modal when clicking outside the modal
@@ -175,6 +174,6 @@ window.addEventListener('click', function (event) {
     const clothingModalMenu = document.getElementById('clothingModalMenu');
     const triggerClothingPopup = document.getElementById('triggerClothingPopup');
     if (event.target === clothingModalMenu || event.target === triggerClothingPopup) {
-        hideAcademicPopupMenu();
+        hideClothesPopupMenu();
     }
 });

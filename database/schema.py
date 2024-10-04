@@ -47,8 +47,8 @@ def connect_to_database():
         connection = mysql.connector.connect(
             user=DB_USER, password=DB_PASSWORD, host=DB_HOST, database=DB_NAME
         )
-        cursor = connection.cursor()
-        return connection, cursor
+
+        return connection
     except mysql.connector.Error as error_descriptor:
         print("Failed connecting to database: {}".format(error_descriptor))
         exit(1)
@@ -297,7 +297,7 @@ def add_test_data(connection, cursor):
             pantry_purchase_data,
         )
 
-        # Insert data into Wardrobe table
+        # Insert data into Clothes table
         wardrobe_data = [
             ("CL_10",),
             ("CL_11",),
@@ -322,10 +322,10 @@ def add_test_data(connection, cursor):
             ("CL_32",),
             ("CL_33",),
         ]
-        cursor.executemany("INSERT INTO Wardrobe (cloth_id) VALUES (%s)", wardrobe_data)
+        cursor.executemany("INSERT INTO Clothes (cloth_id) VALUES (%s)", wardrobe_data)
 
-        # Insert data into WardrobeRentals table
-        wardrobe_rentals_data = [
+        # Insert data into ClothRentals table
+        cloth_rentals_data = [
             (801396004, "CL_14", "2023-05-15", "2023-05-20", 0, "Bad customer", "Umo"),
             (801396005, "CL_15", "2023-05-20", "2023-05-25", 0, "Bad customer", "Umo"),
             (801396006, "CL_16", "2023-05-25", "2023-05-30", 0, "Bad customer", "Umo"),
@@ -345,8 +345,8 @@ def add_test_data(connection, cursor):
             (801396009, "CL_30", "2023-08-05", "2023-08-10", 0, "Bad customer", "Umo"),
         ]
         cursor.executemany(
-            "INSERT INTO WardrobeRentals (student_id, cloth_id, rental_date, due_date, is_returned, notes, renter_info) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-            wardrobe_rentals_data,
+            "INSERT INTO ClothRentals (student_id, cloth_id, rental_date, due_date, is_returned, notes, renter_info) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            cloth_rentals_data,
         )
 
         # Insert data into Textbooks table
@@ -390,6 +390,48 @@ def add_test_data(connection, cursor):
             textbook_rentals_data,
         )
 
+        # Insert data into Kitchenware table
+        kitchenware_data = [
+            ("KW_1",),
+            ("KW_2",),
+            ("KW_3",),
+            ("KW_4",),
+            ("KW_5",),
+            ("KW_6",),
+            ("KW_7",),
+            ("KW_8",),
+            ("KW_9",),
+            ("KW_10",),
+        ]
+
+        cursor.executemany("INSERT INTO Kitchenware (kitchenware_id) VALUES (%s)", kitchenware_data)
+
+        # Insert data into KitchenwareRentals table
+        kitchenware_rentals_data = [
+            (801396004, "KW_1", "2023-05-15", "2023-05-20", 1, "Bad customer"),
+            (801396005, "KW_2", "2023-05-20", "2023-05-25", 1, "Bad customer"),
+            (801396006, "KW_3", "2023-05-25", "2023-05-30", 1, "Bad customer"),
+            (801396007, "KW_4", "2023-06-01", "2023-06-05", 1, "Bad customer"),
+            (801396008, "KW_5", "2023-06-05", "2023-06-10", 1, "Bad customer"),
+            (801396009, "KW_6", "2023-06-10", "2023-06-15", 1, "Bad customer"),
+            (801396010, "KW_7", "2023-06-15", "2023-06-20", 1, "Bad customer"),
+            (801396011, "KW_8", "2023-06-20", "2023-06-25", 1, "Bad customer"),
+            (801396012, "KW_9", "2023-06-25", "2023-06-30", 1, "Bad customer"),
+            (801396007, "KW_10", "2023-07-01", "2023-07-05", 1, "Bad customer"),
+            (801396008, "KW_1", "2023-07-05", "2023-07-10", 1, "Bad customer"),
+            (801396008, "KW_2", "2023-07-10", "2023-07-15", 1, "Bad customer"),
+            (801396009, "KW_3", "2023-07-15", "2023-07-20", 1, "Bad customer"),
+            (801396009, "KW_4", "2023-07-20", "2023-07-25", 1, "Bad customer"),
+            (801396009, "KW_5", "2023-07-25", "2023-07-30", 1, "Bad customer"),
+            (801396009, "KW_6", "2023-08-01", "2023-08-05", 1, "Bad customer"),
+            (801396009, "KW_7", "2023-08-05", "2023-08-10", 1, "Bad customer"),
+        ]
+
+        cursor.executemany(
+            "INSERT INTO KitchenwareRentals (student_id, kitchenware_id, rental_date, due_date, is_returned, notes) VALUES (%s, %s, %s, %s, %s, %s)",
+            kitchenware_rentals_data,
+        )
+
         # Commit the transaction
         connection.commit()
     except mysql.connector.Error as error_descriptor:
@@ -405,7 +447,8 @@ def add_test_data(connection, cursor):
 
 
 def main():
-    connection, cursor = connect_to_database()
+    connection = connect_to_database()
+    cursor = connection.cursor()
     build_schema(connection, cursor)
     build_dynamic(connection, cursor)
     add_test_data(connection, cursor)

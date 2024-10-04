@@ -31,12 +31,12 @@ CREATE TABLE TextbookRentals
 	FOREIGN KEY (book_name) REFERENCES Textbooks (book_name) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
-CREATE TABLE Wardrobe
+CREATE TABLE Clothes
 	(cloth_id				VARCHAR(100),
 	PRIMARY KEY (cloth_id)
 	);
 
-CREATE TABLE WardrobeRentals
+CREATE TABLE ClothRentals
 	(student_id 			INTEGER(9),
 	cloth_id				VARCHAR(100),
 	rental_date				DATE,
@@ -44,7 +44,7 @@ CREATE TABLE WardrobeRentals
 	is_returned				BOOLEAN,
 	notes 					VARCHAR(1000),
 	renter_info				VARCHAR(75),
-	FOREIGN KEY (cloth_id) REFERENCES Wardrobe (cloth_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (cloth_id) REFERENCES Clothes (cloth_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 

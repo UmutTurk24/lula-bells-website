@@ -19,31 +19,44 @@ def delete_student(connection, cursor, student_id):
         exit(1)
 
 
-def delete_pantryitem(connection, cursor, item_name):
-    """Deletes a pantry item from the database"""
+def delete_grocery(connection, item_name):
+    """Deletes a grocery item from the database"""
 
     try:
+        cursor = connection.cursor()
         cursor.execute("DELETE FROM Pantry WHERE item_name = %s", (item_name,))
         connection.commit()
-    except mysql.connector.Error as error_descriptor:
-        print("Failed deleting pantry item: {}".format(error_descriptor))
         cursor.close()
-        connection.close()
-        exit(1)
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed deleting grocery item: {}".format(error_descriptor))
+        return False
 
-
-def delete_textbookitem(connection, cursor, book_name):
+def delete_textbook(connection, book_name):
     """Deletes a textbook item from the database"""
 
     try:
+        cursor = connection.cursor()
         cursor.execute("DELETE FROM Textbooks WHERE book_name = %s", (book_name,))
         connection.commit()
+        cursor.close()
+        return True
     except mysql.connector.Error as error_descriptor:
         print("Failed deleting textbook item: {}".format(error_descriptor))
-        cursor.close()
-        connection.close()
-        exit(1)
+        return False
 
+def delete_cloth(connection, cloth_id):
+    """Deletes a cloth item from the database"""
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM Clothes WHERE cloth_id = %s", (cloth_id,))
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed deleting cloth item: {}".format(error_descriptor))
+        return False
 
 def delete_textbookrental(connection, cursor, book_name):
     """Deletes a textbook rental from the database"""
@@ -57,15 +70,27 @@ def delete_textbookrental(connection, cursor, book_name):
         connection.close()
         exit(1)
 
-
-def delete_wardroberental(connection, cursor, item_name):
-    """Deletes a wardrobe rental from the database"""
+def delete_kitchenware(connection, kitchenware_id):
+    """Deletes a kitchenware item from the database"""
 
     try:
-        cursor.execute("DELETE FROM WardrobeRentals WHERE item_name = %s", (item_name,))
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM Kitchenware WHERE kitchenware_id = %s", (kitchenware_id,))
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed deleting kitchenware item: {}".format(error_descriptor))
+        return False
+
+def delete_cloth_rental(connection, cursor, item_name):
+    """Deletes a cloth rental from the database"""
+
+    try:
+        cursor.execute("DELETE FROM ClothRentals WHERE item_name = %s", (item_name,))
         connection.commit()
     except mysql.connector.Error as error_descriptor:
-        print("Failed deleting wardrobe rental: {}".format(error_descriptor))
+        print("Failed deleting cloth rental: {}".format(error_descriptor))
         cursor.close()
         connection.close()
         exit(1)
@@ -139,14 +164,14 @@ def delete_all_textbookrentals(connection, cursor):
         exit(1)
 
 
-def delete_all_wardroberentals(connection, cursor):
-    """Deletes all wardrobe rentals from the database"""
+def delete_all_clothRentals(connection, cursor):
+    """Deletes all cloth rentals from the database"""
 
     try:
-        cursor.execute("DELETE FROM WardrobeRentals")
+        cursor.execute("DELETE FROM ClothRentals")
         connection.commit()
     except mysql.connector.Error as error_descriptor:
-        print("Failed deleting all wardrobe rentals: {}".format(error_descriptor))
+        print("Failed deleting all cloth rentals: {}".format(error_descriptor))
         cursor.close()
         connection.close()
         exit(1)

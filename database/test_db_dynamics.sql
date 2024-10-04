@@ -1,6 +1,12 @@
 USE TestLulaBells;
 
 -- Demographics Report class year, residence, and total amount of visits + uniqueness
+-- Start and End Date
+
+-- Inventory Report
+-- Every Student, Every Item, Every Visit
+-- Start and End Date
+
 -- Visit counts by date
 -- Allow only 4 class years on the website. ex: 2020, 2021, 2022, 2023
 -- at the end of the each year, do the summer start and summer end button
@@ -136,11 +142,11 @@ SELECT @class_year_count_var AS class_year_count,
  */
 
 -- VIEW: Get the students who need to return their rental clothes
-CREATE VIEW OverdueWardrobeRentals AS
+CREATE VIEW OverdueclothRentals AS
 SELECT *
-FROM WardrobeRentals wr
+FROM ClothRentals wr
 WHERE due_date <= CURDATE();
--- EXAMPLE SELECT * FROM OverdueWardrobeRentals;
+-- EXAMPLE SELECT * FROM OverdueclothRentals;
 
 -- VIEW: Get the students who need to return their rental clothes
 CREATE VIEW OverdueTextbookRentals AS

@@ -12,17 +12,36 @@ def get_students_for_search_bar(connection):
     cursor.close()
     return result
 
+def get_all_groceries(connection):
+    """Returns all groceries items in the database"""
 
-def get_all_pantry(connection, cursor):
-    """Returns all pantry items in the database"""
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM Pantry")
-    return cursor.fetchall()
+
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 
-def get_all_textbooks(connection, cursor):
+def get_all_textbooks(connection):
     """Returns all textbooks items in the database"""
+
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM Textbooks")
-    return cursor.fetchall()
+
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+def get_all_kitchenware(connection):
+    """Returns all kitchenware items in the database"""
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Kitchenware")
+
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 
 def get_student(connection, student_id):
@@ -46,6 +65,15 @@ def get_textbookitem(connection, cursor, book_name):
     cursor.execute("SELECT * FROM Textbooks WHERE book_name = %s", (book_name,))
     return cursor.fetchone()
 
+def get_all_clothes(connection):
+    """Returns all clothes items in the database"""
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Clothes")
+
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 def get_all_textbookrentals(connection, cursor):
     """Returns all textbook rentals in the database"""
@@ -53,9 +81,9 @@ def get_all_textbookrentals(connection, cursor):
     return cursor.fetchall()
 
 
-def get_all_wardroberentals(connection, cursor):
-    """Returns all wardrobe rentals in the database"""
-    cursor.execute("SELECT * FROM WardrobeRentals")
+def get_all_clothRentals(connection, cursor):
+    """Returns all cloth rentals in the database"""
+    cursor.execute("SELECT * FROM ClothRentals")
     return cursor.fetchall()
 
 
@@ -69,6 +97,15 @@ def get_textbookrental_by_student(connection, student_id):
     """Returns all textbook rentals in the database given the student_id"""
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM TextbookRentals WHERE student_id = %s", (student_id,))
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+
+def get_kitchenwarerental_by_student(connection, student_id):
+    """Returns all kitchenware rentals in the database given the student_id"""
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM KitchenwareRentals WHERE student_id = %s", (student_id,))
     result = cursor.fetchall()
     cursor.close()
     return result
@@ -103,27 +140,27 @@ def get_textbookrental_by_startdate_and_enddate(
     return cursor.fetchall()
 
 
-def get_wardroberental_by_student(connection, student_id):
-    """Returns all wardrobe rentals in the database given the student_id"""
+def get_clothrental_by_student(connection, student_id):
+    """Returns all cloth rentals in the database given the student_id"""
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM WardrobeRentals WHERE student_id = %s AND is_returned = 0", (student_id,))
+    cursor.execute("SELECT * FROM ClothRentals WHERE student_id = %s AND is_returned = 0", (student_id,))
     result = cursor.fetchall()
     cursor.close()
     return result
 
 
-def get_wardroberental_by_clothid(connection, cursor, cloth_id):
-    """Returns all wardrobe rentals in the database given the cloth_id"""
-    cursor.execute("SELECT * FROM WardrobeRentals WHERE cloth_id = %s", (cloth_id,))
+def get_cloth_rental_by_clothid(connection, cursor, cloth_id):
+    """Returns all cloth rentals in the database given the cloth_id"""
+    cursor.execute("SELECT * FROM ClothRentals WHERE cloth_id = %s", (cloth_id,))
     return cursor.fetchall()
 
 
 def get_wardroberental_by_startdate_and_enddate(
     connection, cursor, start_date, end_date
 ):
-    """Returns all wardrobe rentals in the database given the start_date and end_date"""
+    """Returns all cloth rentals in the database given the start_date and end_date"""
     cursor.execute(
-        "SELECT * FROM WardrobeRentals WHERE rental_date >= %s AND rental_date <= %s",
+        "SELECT * FROM ClothRentals WHERE rental_date >= %s AND rental_date <= %s",
         (start_date, end_date),
     )
     return cursor.fetchall()
@@ -169,7 +206,39 @@ def get_textbooks_and_renters(connection):
 def get_clothes_and_renters(connection):
     """Returns all clothes and renters information in the database"""
     cursor = connection.cursor()
-    cursor.execute("SELECT w.cloth_id, wr.rental_date, wr.is_returned FROM (SELECT * FROM Wardrobe w) as w LEFT JOIN (SELECT * FROM WardrobeRentals WHERE is_returned = 0) as wr ON w.cloth_id = wr.cloth_id")
+    cursor.execute("SELECT w.cloth_id, wr.rental_date, wr.is_returned FROM (SELECT * FROM Clothes w) as w LEFT JOIN (SELECT * FROM ClothRentals WHERE is_returned = 0) as wr ON w.cloth_id = wr.cloth_id")
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+
+def get_kitchenware_and_renters(connection):
+    """Returns all kitchenware and renters information in the database"""
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT k.kitchenware_id, kr.rental_date, kr.is_returned FROM (SELECT * FROM Kitchenware k) as k LEFT JOIN (SELECT * FROM KitchenwareRentals WHERE is_returned = 0) as kr ON k.kitchenware_id = kr.kitchenware_id"
+    )
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+
+def get_grocery_items(connection):
+    """Returns all groceries in the database"""
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT * FROM Pantry"
+    )
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+def get_all_users(connection):
+    """Returns all users in the database"""
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT * FROM Users"
+    )
     result = cursor.fetchall()
     cursor.close()
     return result

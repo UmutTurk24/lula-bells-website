@@ -95,9 +95,9 @@ END;
 
 
 -- VIEW: Get the students who need to return their rental clothes
-CREATE VIEW OverdueWardrobeRentals AS
+CREATE VIEW OverdueclothRentals AS
 SELECT *
-FROM WardrobeRentals wr
+FROM ClothRentals wr
 WHERE due_date <= CURDATE();
 
--- EXAMPLE SELECT * FROM OverdueWardrobeRentals;
+-- EXAMPLE SELECT * FROM OverdueclothRentals;

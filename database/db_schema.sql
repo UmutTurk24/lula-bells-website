@@ -32,12 +32,12 @@ CREATE TABLE TextbookRentals
 	FOREIGN KEY (book_name) REFERENCES Textbooks (book_name) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
-CREATE TABLE Wardrobe
+CREATE TABLE Clothes
 	(cloth_id				VARCHAR(100),
 	PRIMARY KEY (cloth_id)
 	);
 
-CREATE TABLE WardrobeRentals
+CREATE TABLE ClothRentals
 	(student_id 			INTEGER(9),
 	cloth_id				VARCHAR(100),
 	rental_date				DATE,
@@ -45,7 +45,7 @@ CREATE TABLE WardrobeRentals
 	is_returned				BOOLEAN,
 	notes 					VARCHAR(1000),
 	renter_info				VARCHAR(75),
-	FOREIGN KEY (cloth_id) REFERENCES Wardrobe (cloth_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (cloth_id) REFERENCES Clothes (cloth_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
@@ -65,12 +65,21 @@ CREATE TABLE PantryPurchase
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
-CREATE TABLE Notes
-	(note_id				INT NOT NULL AUTO_INCREMENT,
-	student_id				INTEGER(9),
-	note_date				DATE,
-	note_text				VARCHAR(1000),
-	PRIMARY KEY (note_id),
+
+CREATE TABLE Kitchenware
+	(kitchenware_id				VARCHAR(100),
+	PRIMARY KEY (kitchenware_id)
+	);
+
+CREATE TABLE KitchenwareRentals
+	(student_id 			INTEGER(9),
+	kitchenware_id			VARCHAR(100),
+	rental_date				DATE,
+	due_date				DATE,
+	is_returned				BOOLEAN,
+	notes 					VARCHAR(1000),
+	renter_info				VARCHAR(75),
+	FOREIGN KEY (kitchenware_id) REFERENCES Kitchenware (kitchenware_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (student_id) REFERENCES Students (student_id) ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
@@ -78,6 +87,6 @@ CREATE TABLE Users
 	(user_id				INT NOT NULL AUTO_INCREMENT,
 	username				VARCHAR(50),
 	password				VARCHAR(128),
-	salt					VARCHAR(40),
+	role 					VARCHAR(20),
 	PRIMARY KEY (user_id)
 );

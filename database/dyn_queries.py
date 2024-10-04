@@ -73,15 +73,15 @@ def get_customer_demographics(connection, cursor, start_date, end_date):
         exit(1)
 
 
-def get_overdue_wardrobe_rentals(connection, cursor):
-    """Retrieves the overdue wardrobe rentals"""
+def get_overdue_cloth_rentals(connection, cursor):
+    """Retrieves the overdue cloth rentals"""
 
     try:
-        cursor.execute("SELECT * FROM OverdueWardrobeRentals;")
+        cursor.execute("SELECT * FROM OverdueclothRentals;")
         return cursor.fetchall()
     except mysql.connector.Error as error_descriptor:
         print(
-            "Failed calling the OverdueWardrobeRentals view: {}".format(
+            "Failed calling the OverdueclothRentals view: {}".format(
                 error_descriptor
             )
         )

@@ -2,7 +2,7 @@ var students = [];
 
 async function fetchStudents() {
   try {
-    const response = await fetch('/get-search-bar-info', {
+    const response = await fetch('/inventory/get-search-bar-info', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ searchStudentInput.addEventListener('click', function (event) {
 
 async function fetchStudentInfo(studentId) {
   try {
-    const response = await fetch(`/get-searched-student-info?studentId=${studentId}`, {
+    const response = await fetch(`/inventory/get-searched-student-info?studentId=${studentId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -94,14 +94,14 @@ async function queryDatabase(student) {
   // Extract the id of the student (the last word in the student name string)
   const studentId = student.split(' ').pop();
 
-
   // Gather all student information from the database
   var studentInfo = await fetchStudentInfo(studentId);
 
   var student = studentInfo['studentInfo'];
   var previousVisits = studentInfo['previousVisits'];
-  var wardrobeRentals = studentInfo['wardrobeRentals'];
+  var clothRentals = studentInfo['clothRentals'];
   var textbookRentals = studentInfo['textbookRentals'];
+  var kitchenwareRentals = studentInfo['kitchenwareRentals'];
 
   // Fill out the Student Information
   var studentNameField = document.getElementById('studentNameField');
@@ -122,7 +122,7 @@ async function queryDatabase(student) {
 
   // Fill out the Previous Visits
   displayGroceryInfo(previousVisits, student);
-  displayRentalInfo(wardrobeRentals, textbookRentals, student);
+  displayRentalInfo(clothRentals, textbookRentals, kitchenwareRentals, student);
 
   const res = {
     id: student[0][0],
@@ -134,11 +134,11 @@ async function queryDatabase(student) {
   displayStudentInfo(res);
 }
 
-function displayRentalInfo(wardrobeRentals, textbookRentals, student) {
+function displayRentalInfo(clothRentals, textbookRentals, kitchenwareRentals, student) {
   let rentalsField = document.getElementById('rentedItemsWindow');
   rentalsField.innerHTML = "";
 
-  wardrobeRentals.forEach(rental => {
+  clothRentals.forEach(rental => {
     if (rental[4] == 0) {
       var clothId = rental[1];
       var dueDate = rental[3];
@@ -154,7 +154,7 @@ function displayRentalInfo(wardrobeRentals, textbookRentals, student) {
 
       let div = document.createElement('div');
       div.textContent = rentalInfo;
-      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
+      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-amber-200', 'bg-amber-500', 'p-2');
       div.addEventListener('click', () => showRentedClothModal(dateString, clothId, notes, renter, student));
       rentalsField.appendChild(div);
     }
@@ -171,15 +171,35 @@ function displayRentalInfo(wardrobeRentals, textbookRentals, student) {
       let date = new Date(dueDate); 
       let dateString = date.getUTCMonth() + 1 + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
 
-
-
-
       const rentalInfo = "Textbook: " + textbookName + ", Due Date: " + dateString;
 
       let div = document.createElement('div');
       div.textContent = rentalInfo;
-      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
+      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-orange-200', 'bg-orange-500', 'p-2');
       div.addEventListener('click', () => showRentedTextbookModal(dateString, textbookName, notes, student));
+
+      rentalsField.appendChild(div);
+    }
+  });
+
+  kitchenwareRentals.forEach(rental => {
+    if (rental[4] == 0) {
+
+      kitchenwareName = rental[1];
+      dueDate = rental[3];
+      notes = rental[5];
+      renter = rental[6];
+
+      // Format the date
+      let date = new Date(dueDate);
+      let dateString = date.getUTCMonth() + 1 + "/" + date.getUTCDate() + "/" + date.getUTCFullYear();
+
+      const rentalInfo = "Kitchenware: " + kitchenwareName + ", Due Date: " + dateString;
+
+      let div = document.createElement('div');
+      div.textContent = rentalInfo;
+      div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-green-200', 'bg-green-500', 'p-2');
+      div.addEventListener('click', () => showRentedKitchenwareModal(dateString, kitchenwareName, notes, renter, student));
 
       rentalsField.appendChild(div);
     }
@@ -218,7 +238,7 @@ function displayGroceryInfo(previousVisits, student) {
   for (const [key, value] of Object.entries(groupedVisits)) {
     let div = document.createElement('div');
     div.textContent = "Visit Date: " + key;
-    div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-gray-400', 'bg-gray-200', 'p-2');
+    div.classList.add('mb-2', 'cursor-pointer', 'hover:bg-orange-200', 'bg-orange-300', 'p-2', 'rounded-md');
     div.addEventListener('click', () => showGroceryModal(key, value, student));
 
     previousVisitsField.appendChild(div);

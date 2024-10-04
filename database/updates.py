@@ -41,22 +41,21 @@ def update_student(
         connection.close()
         exit(1)
 
-
-def update_pantryitem(connection, cursor, item_name, quantity, cost):
-    """Updates a pantry item in the database given the item_name"""
+def update_grocery(connection, item_name, quantity, cost):
+    """Updates a grocery item in the database given the item_name"""
 
     try:
+        cursor = connection.cursor()
         cursor.execute(
             "UPDATE Pantry SET quantity = %s, cost = %s WHERE item_name = %s",
             (quantity, cost, item_name),
         )
         connection.commit()
-    except mysql.connector.Error as error_descriptor:
-        print("Failed updating pantry item: {}".format(error_descriptor))
         cursor.close()
-        connection.close()
-        exit(1)
-
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed updating grocery item: {}".format(error_descriptor))
+        return None
 
 def update_textbookitem(connection, cursor, old_book_name, owned_status, new_book_name):
     """Updates a textbook item in the database given the book_name"""
@@ -77,6 +76,7 @@ def update_textbookitem(connection, cursor, old_book_name, owned_status, new_boo
 def update_pantry_purchase(connection, quantity, purchase_date, student_id, item_name):
     """Updates a grocery visit item in the database given the visit_id"""
 
+    print(quantity, purchase_date, student_id, item_name)
     try:
         cursor = connection.cursor()
         cursor.execute(
@@ -91,13 +91,13 @@ def update_pantry_purchase(connection, quantity, purchase_date, student_id, item
         return None
 
 
-def update_rented_cloth_db(connection, due_date, student_id, cloth_id, is_returned):
-    """Updates a rented clothing item in the database """
+def update_rented_cloth(connection, due_date, student_id, cloth_id, is_returned):
+    """Updates a rented clothing item in the database"""
 
     try:
         cursor = connection.cursor()
         cursor.execute(
-            "UPDATE WardrobeRentals SET is_returned = %s WHERE student_id = %s AND cloth_id = %s AND due_date = %s",
+            "UPDATE ClothRentals SET is_returned = %s WHERE student_id = %s AND cloth_id = %s AND due_date = %s",
             (is_returned, student_id, cloth_id, due_date),
         )
         connection.commit()
@@ -108,8 +108,10 @@ def update_rented_cloth_db(connection, due_date, student_id, cloth_id, is_return
         return None
 
 
-def update_rented_textbook_db(connection, due_date, student_id, textbook_name, is_returned):
-    """Updates a rented textbook item in the database """
+def update_rented_textbook(
+    connection, due_date, student_id, textbook_name, is_returned
+):
+    """Updates a rented textbook item in the database"""
     print(due_date, student_id, textbook_name, is_returned)
     try:
         cursor = connection.cursor()
@@ -122,4 +124,40 @@ def update_rented_textbook_db(connection, due_date, student_id, textbook_name, i
         return True
     except mysql.connector.Error as error_descriptor:
         print("Failed updating rented texbtook: {}".format(error_descriptor))
+        return None
+
+
+def update_rented_kitchenware(
+    connection, due_date, student_id, kitchenware_name, is_returned
+):
+    """Updates a rented textbook item in the database"""
+    print(due_date, student_id, kitchenware_name, is_returned)
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "UPDATE KitchenwareRentals SET is_returned = %s WHERE student_id = %s AND kitchenware_id = %s AND due_date = %s",
+            (is_returned, student_id, kitchenware_name, due_date),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed updating rented kitchenware: {}".format(error_descriptor))
+        return None
+
+
+def student_agreement(connection, student_id, agreement_signed):
+    """Updates a student agreement in the database given the student_id"""
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            "UPDATE Students SET agreement_signed = %s WHERE student_id = %s",
+            (agreement_signed, student_id),
+        )
+        connection.commit()
+        cursor.close()
+        return True
+    except mysql.connector.Error as error_descriptor:
+        print("Failed updating student agreement: {}".format(error_descriptor))
         return None

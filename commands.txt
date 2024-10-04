@@ -3,3 +3,6 @@ source .venv/bin/activate && pip install -r requirements.txt
 git+https://github.com/azure-samples/ms-identity-python-samples-common
 
 npx tailwindcss -i ./static/src/input.css -o ./static/dist/css/output.css --watch
+
+https://docs.google.com/document/d/1XteCMneu3MjDamFhMYToJIa7n9pTA3GB/edit
+

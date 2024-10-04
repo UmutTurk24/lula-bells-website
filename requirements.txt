@@ -9,4 +9,6 @@ bcrypt==4.1.2
 Flask-Session==0.6.0
 pyOpenSSL==24.0.0
 Werkzeug==3.0.1
+flask-login==0.6.3
+Flask-Bcrypt==1.0.1
 git+https://github.com/azure-samples/ms-identity-python-samples-common

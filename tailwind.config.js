@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'food-patterns': "url('/static/dist/login.png')",
+        'food-patterns2': "url('/static/dist/admin-login.png')",
       },
     },
   },

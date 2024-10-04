@@ -449,13 +449,13 @@ def test_get_textbookrental():
 
 
 def test_get_wardroberental():
-    """Tests that a wardrobe rental can be retrieved from the database"""
+    """Tests that a Cloth rental can be retrieved from the database"""
 
     connection, cursor = connect_to_test_database()
     build_test_schema(connection, cursor)
-    # Insert a wardrobe item
+    # Insert a clothes item
 
-    insert_wardrobeitem(connection, cursor, "cloth_id")
+    insert_cloth_item(connection, cursor, "cloth_id")
 
     # Insert a student
     insert_student(
@@ -471,7 +471,7 @@ def test_get_wardroberental():
         "This is a student",
     )
 
-    # Insert wardrobe rentals
+    # Insert clothes rentals
     insert_wardroberental(
         connection,
         cursor,
@@ -482,7 +482,7 @@ def test_get_wardroberental():
         False,
         "Some note",
     )
-    results = get_wardroberental_by_student(connection, cursor, "801396010")
+    results = get_clothrental_by_student(connection, cursor, "801396010")
     assert results[0][0] == 801396010
     assert results[0][1] == "cloth_id"
     assert results[0][2] == convertDate("20200220")
@@ -490,7 +490,7 @@ def test_get_wardroberental():
     assert results[0][4] == 0  # Or False
     assert results[0][5] == "Some note"
 
-    results = get_wardroberental_by_clothid(connection, cursor, "cloth_id")
+    results = get_cloth_rental_by_clothid(connection, cursor, "cloth_id")
     assert results[0][0] == 801396010
     assert results[0][1] == "cloth_id"
     assert results[0][2] == convertDate("20200220")
@@ -664,14 +664,14 @@ def test_get_all_textbookrentals():
     connection.close()
 
 
-def test_get_all_wardroberentals():
-    """Tests that all wardrobe rentals can be retrieved from the database"""
+def test_get_all_clothRentals():
+    """Tests that all clothes rentals can be retrieved from the database"""
 
     connection, cursor = connect_to_test_database()
     build_test_schema(connection, cursor)
-    # Insert a wardrobe item
+    # Insert a clothes item
 
-    insert_wardrobeitem(connection, cursor, "cloth_id")
+    insert_cloth_item(connection, cursor, "cloth_id")
 
     # Insert a student
     insert_student(
@@ -686,7 +686,7 @@ def test_get_all_wardroberentals():
         convertDate("20200220"),
     )
 
-    # Insert wardrobe rentals
+    # Insert clothes rentals
     for index in range(100):
         insert_wardroberental(
             connection,
@@ -697,7 +697,7 @@ def test_get_all_wardroberentals():
             convertDate("20200221"),
             False,
         )
-    results = get_all_wardroberentals(connection, cursor)
+    results = get_all_clothRentals(connection, cursor)
     assert len(results) == 100
     cursor.close()
     connection.close()

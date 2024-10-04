@@ -86,7 +86,7 @@ function submitRentedClothForm(dueDate, clothId, isChecked, student) {
     console.log(data);
 
     // Submit the form (you need to specify the URL where to submit the form data)
-    fetch('/update-rented-cloth', {
+    fetch('/inventory/update-rented-cloth', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
