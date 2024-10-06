@@ -95,28 +95,10 @@ ADMIN_PASSWORD_SALT = os.environ.get("ADMIN_PASSWORD_SALT")
 
 def create_app(secure_client_credential=None):
     app = Flask(__name__, root_path=Path(__file__).parent)  # initialize Flask app
-    # app.config.from_object(
-    #     app_config
-    # )  # load Flask configuration file (e.g., session configs)
+
     Session(
         app
     )  # init the serverside session for the app: this is requireddue to large cookie size
-
-    # Flask MS Identity Web setup
-    # aad_configuration = AADConfig.parse_json("aad.config.json")  # parse the aad configs
-    # app.logger.level = logging.INFO  # can set to DEBUG for verbose logs
-    # if app.config.get("ENV") == "production":
-        # The following is required to run on Azure App Service or any other host with reverse proxy:
-        # from werkzeug.middleware.proxy_fix import ProxyFix
-
-        # app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
-        # Use client credential from outside the config file, if available.
-        # if secure_client_credential:
-            # aad_configuration.client.client_credential = secure_client_credential
-
-    # AADConfig.sanity_check_configs(aad_configuration)
-    # adapter = FlaskContextAdapter(app)
-    # ms_identity_web = IdentityWebPython(aad_configuration, adapter)
 
     # Flask-login Setup, this is only for the admin page
     login_manager = LoginManager()
