@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      context: ./app
+    container_name: app_container
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: mysql_db
+      DB_NAME: ${DB_NAME}
+      ADMIN_NAME: ${ADMIN_NAME}
+      ADMIN_PASSWORD: $2b$12$Kz4WER.SMNN5lr6Izk5AhOKYLiiI8scVEwrRj3F9gNTB6i7un3m7i
+      ADMIN_ID: 12052024
+    volumes:
+      - ./app:/usr/src/app
+    ports:
+      - "8080:5000"
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+        restart: true
+    networks:
+      - app-network
+
+  mysql_db:
+    build:
+      context: ./mysql-db
+    container_name: mysql_db
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-db/custom-config:/etc/mysql/conf.d
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:

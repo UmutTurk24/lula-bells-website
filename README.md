@@ -13,7 +13,7 @@ To create the database -> check the database folder
 Run tailwindcss -> `npx tailwindcss -i ./static/src/input.css -o ./static/dist/css/output.css --watch`
 
 To run the website -> python3 main.py
-It can't do full address resolution, so visit `https://127.0.0.1:5000/`. 
+It can't do full address resolution, so visit `https://127.0.0.1:5010/`. 
 
 TBH I forgot where I left this project. I would recommend doing the following and letting me know how it goes:
     - log in to volunteer page and:
