@@ -17,10 +17,10 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
 # Copy the application code to the container
 COPY . .
 
-# Install Python dependencies (assuming a requirements.txt file)
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Node.js packages (add package.json if you're using it)
+# Install Node.js packages
 RUN npm install -g npx --force && npm install --force
 
 # Run the Tailwind CSS build command
@@ -29,6 +29,4 @@ RUN npx tailwindcss -i ./static/src/input.css -o ./static/dist/css/output.css --
 # Expose the port your app runs on
 EXPOSE 5000
 
-# Command to run your application
 CMD ["python", "main.py"]
-# CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
