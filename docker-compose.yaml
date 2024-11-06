@@ -4,11 +4,11 @@ services:
       context: ./app
     container_name: app_container
     environment:
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: root
+      DB_PASSWORD: rust.BETTER.than.GO
       DB_HOST: mysql_db
-      DB_NAME: ${DB_NAME}
-      ADMIN_NAME: ${ADMIN_NAME}
+      DB_NAME: LulaBells
+      ADMIN_NAME: /run/secrets/ADMIN_NAME
       ADMIN_PASSWORD: $2b$12$Kz4WER.SMNN5lr6Izk5AhOKYLiiI8scVEwrRj3F9gNTB6i7un3m7i
       ADMIN_ID: 12052024
     volumes:
@@ -21,29 +21,54 @@ services:
         restart: true
     networks:
       - app-network
+    secrets:
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
+      - ADMIN_NAME
 
   mysql_db:
+    image: mysql:latest
+    container_name: mysql_db
     build:
       context: ./mysql-db
-    container_name: mysql_db
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${cat /run/secrets/DB_PASSWORD}"]
       interval: 30s
       timeout: 10s
       retries: 5
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=/run/secrets/DB_NAME
+      - MYSQL_ROOT_PASSWORD=/run/secrets/DB_PASSWORD
     ports:
       - "3306:3306"
     volumes:
       - ./mysql-db/custom-config:/etc/mysql/conf.d
-      - db_data:/var/lib/mysql
+      - ./mysql-db/db_data:/var/lib/mysql
+      - ./mysql-db/init.sql:/docker-entrypoint-initdb.d/1.sql
     networks:
       - app-network
+    secrets:
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
 
 volumes:
   db_data:
 
 networks:
   app-network:
+
+secrets:
+  DB_USER:
+    file: secrets/secrets.txt
+  DB_PASSWORD:
+    file: secrets/secrets.txt
+  DB_NAME:
+    file: secrets/secrets.txt
+  ADMIN_NAME:
+    file: secrets/secrets.txt
+  DB_HOST:
+    file: secrets/secrets.txt
+  

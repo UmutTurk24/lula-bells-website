@@ -1,0 +1,3 @@
+ALTER USER 'root'@'%' IDENTIFIED BY 'rust.BETTER.than.GO';
+FLUSH PRIVILEGES;
+

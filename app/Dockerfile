@@ -30,3 +30,4 @@ RUN npx tailwindcss -i ./static/src/input.css -o ./static/dist/css/output.css --
 EXPOSE 5000
 
 CMD ["python", "main.py"]
+# CMD ["echo", "Hello, World!"]
