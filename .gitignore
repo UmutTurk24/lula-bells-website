@@ -6,5 +6,6 @@ duo.conf
 aad.config.json
 app_config.py
 ssl
-mysql-db/data/*
+mysql-db/db_data/*
 mysql-db/log/*
+node_modules
